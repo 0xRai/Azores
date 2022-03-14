@@ -1,0 +1,386 @@
+/*  ===========
+    Variables
+    ===========  */
+
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Montserrat:wght@300;500;700&display=swap');
+:root {
+    --lightblue: #4392F1;
+    --blue: #006494;
+    --grey: #262626;
+    --red: #dc493a;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+/*  ===========
+    Reset
+    ===========  */
+
+html,
+body {
+    min-height: 100vh;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+
+/*  ===========
+    Layout
+    ===========  */
+
+body {
+    height: 100vh;
+}
+
+
+/*  ===========
+    Components
+    ===========  */
+
+a {
+    color: var(--lightblue);
+    transition-property: all;
+    transition-duration: 100ms;
+}
+
+a:hover {
+    color: var(--red);
+}
+
+p {
+    font-weight: 300;
+    font-size: 1rem;
+}
+
+.form {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    position: relative;
+    flex-direction: column;
+    max-width: 20rem;
+    margin: auto 0;
+    /* outline: .175rem solid var(--lightblue); */
+    border-radius: 1rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    filter: drop-shadow(0 2rem 1rem rgba(0, 0, 0, 0.205));
+    background-color: var(--grey);
+    padding: 1rem;
+}
+
+.form-title {
+    font-weight: 700;
+    font-size: xx-large;
+    margin: 1rem;
+    color: white;
+    text-align: center;
+}
+
+.form-logo {
+    width: 10rem;
+    margin-bottom: .5rem;
+}
+
+.form-validated {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form-input {
+    margin: .5rem;
+}
+
+.form-control {
+    height: 2rem;
+    border-radius: 1rem;
+    border-style: solid double;
+    border-color: var(--blue);
+    background-color: var(--grey);
+    transition-property: all;
+    transition-duration: 100ms;
+    color: white;
+    font-size: 1rem;
+}
+
+.form-control:focus {
+    border-style: solid double;
+    background-color: whitesmoke;
+    outline: none;
+    color: black;
+}
+
+.form-control[type='text'] {
+    padding-left: 2rem;
+}
+
+.form-control[type='password'] {
+    padding-left: 2rem;
+}
+
+.email[type='text'] {
+    content: " ";
+    top: 0;
+    left: 0;
+    background-image: url('../images/at.svg');
+    background-repeat: no-repeat;
+    background-position: 2%;
+    background-size: 1.25rem;
+}
+
+.username[type='text'] {
+    content: " ";
+    top: 0;
+    left: 0;
+    background-image: url('../images/user.svg');
+    background-repeat: no-repeat;
+    background-position: 2%;
+    background-size: 1.25rem;
+}
+
+.password[type='password'] {
+    content: " ";
+    top: 0;
+    left: 0;
+    background-image: url('../images/key.svg');
+    background-repeat: no-repeat;
+    background-position: 2%;
+    background-size: 1.25rem;
+}
+
+.form-button {
+    width: auto;
+    margin: .5rem;
+    outline: none;
+    font-weight: 500;
+    height: 2rem;
+    border-radius: 1rem;
+    border: none;
+}
+
+.btn-primary {
+    background-color: var(--blue);
+    transition-property: all;
+    transition-duration: 100ms;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--lightblue);
+    color: black;
+}
+
+#checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-input label {
+    color: white;
+    vertical-align: baseline;
+    margin: 0 .5rem;
+    font-size: .8rem;
+}
+
+
+/* The Modal (background) */
+
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+
+
+/* Modal Content/Box */
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    /* Could be more or less, depending on screen size */
+}
+
+
+/* The Close Button */
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+/*  ===========
+    NavBar
+    ===========  */
+
+.navbar {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: .5rem 2rem;
+    vertical-align: baseline;
+    background-color: #262626;
+    max-height: 4rem;
+    overflow: hidden;
+    max-width: 100vw;
+    z-index: 2;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: .9rem;
+}
+
+.navbar a:hover {
+    color: var(--blue);
+}
+
+.navbar-section {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+    padding: auto;
+}
+
+.navbar-brand {
+    vertical-align: baseline;
+    font-size: 1.5rem;
+    max-width: 2rem;
+    max-height: 2rem;
+    margin-right: .5rem;
+    font-weight: 400;
+    font-family: 'Fredoka One', cursive;
+}
+
+@media (max-width: 650px) {
+    #navBrand {
+        color: red;
+        display: none;
+        visibility: hidden;
+    }
+    #searchBar {
+        display: flex;
+    }
+    .navbar-brand {
+        margin: auto;
+    }
+}
+
+.navbar-link {
+    margin: 0 .5rem;
+    padding: auto;
+}
+
+#navbarMid {
+    flex-basis: 30rem;
+}
+
+#searchBar {
+    border-radius: 1rem;
+    border-style: solid double;
+    border-color: var(--blue);
+    background-color: var(--grey);
+    height: 1.5rem;
+    transition-property: all;
+    transition-duration: 100ms;
+    width: 100%;
+    color: white;
+}
+
+#searchBar[type='text'] {
+    padding-left: 2rem;
+}
+
+#searchBar[type='text'] {
+    content: " ";
+    top: 0;
+    left: 0;
+    background-image: url('../images/search.svg');
+    background-repeat: no-repeat;
+    background-position: 2%;
+    background-size: 1.25rem;
+}
+
+#searchBar:focus {
+    border-style: solid double;
+    background-color: whitesmoke;
+    outline: none;
+    color: black;
+}
+
+#registerBtn {
+    cursor: pointer;
+    background-color: var(--blue);
+    border-style: solid double;
+    border-color: var(--blue);
+    border-radius: 1rem;
+    width: 5rem;
+    height: 1.5rem;
+    color: white;
+    font-size: .9rem;
+    transition-property: all;
+    transition-duration: 100ms;
+}
+
+#registerBtn:hover {
+    background-color: transparent;
+    color: var(--blue);
+}
+
+
+/*  ===========
+    Header
+    ===========  */
+
+
+/*  ===========
+    Main
+    ===========  */
+
+
+/*  ===========
+    Footer
+    ===========  */
+
+
+/*  ===========
+    Animations
+    ===========  */

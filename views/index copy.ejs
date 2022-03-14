@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+    <%- include('../partials/navbar') %>
+        <main>
+            <%- include('../partials/flash') %>
+                <%- body %>
+        </main>
+        <%- include('../partials/footer') %>
+
+
+</body>
+
+</html>
