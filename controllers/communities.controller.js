@@ -1,23 +1,15 @@
-const Campground = require('../models/campground');
-const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding')
-const { cloudinary } = require('../cloudinary');
-const mapBoxToken = process.env.MAPBOX_TOKEN;
-const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
+const Community = require('../models/community.schema');
 
 module.exports.index = async(req, res) => {
-    const campgrounds = await Campground.find({});
-    res.render('campgrounds/index', { campgrounds })
+    const communities = await Community.find({});
+    res.render('communities/index', { communities })
 };
 
 module.exports.renderNewForm = (req, res) => {
-    res.render('campgrounds/new');
+    res.render('communities/new');
 };
 
 module.exports.createCampground = async(req, res, next) => {
-    const geoData = await geocoder.forwardGeocode({
-        query: req.body.campground.location,
-        limit: 1
-    }).send();
     const campground = new Campground(req.body.campground);
     campground.geometry = geoData.body.features[0].geometry;
     campground.images = req.files.map(f => ({ url: f.path, filename: f.filename }));
@@ -25,21 +17,22 @@ module.exports.createCampground = async(req, res, next) => {
     await campground.save();
     console.log(campground);
     req.flash('success', 'Sucessfully made a new campground!');
-    res.redirect(`/campgrounds/${campground._id}`);
+    res.redirect(`/c/${campground.name}`);
 };
 
-module.exports.showCampground = async(req, res) => {
-    const campground = await Campground.findById(req.params.id).populate({
-        path: 'reviews',
-        populate: {
-            path: 'author'
-        }
-    }).populate('author');
-    if (!campground) {
-        req.flash('error', 'Campground not found!');
-        return res.redirect('/campgrounds')
+module.exports.showCommunity = async(req, res) => {
+    const community = await Community.findById(req.params.id)
+        // const community = await Community.findById(req.params.id) /*.populate({*/
+        //      path: 'reviews',
+        //      populate: {
+        //          path: 'author'
+        // };
+        /*}); .populate('author') */
+    if (!community) {
+        req.flash('error', 'Community not found!');
+        return res.redirect('/c')
     }
-    res.render('campgrounds/show', { campground });
+    res.render('communities/show', { community });
 }
 
 module.exports.renderEditForm = async(req, res) => {
@@ -47,9 +40,9 @@ module.exports.renderEditForm = async(req, res) => {
     const campground = await Campground.findById(id);
     if (!campground) {
         req.flash('error', 'Campground not found!');
-        return res.redirect('/campgrounds')
+        return res.redirect('/communities')
     }
-    res.render('campgrounds/edit', { campground });
+    res.render('communities/edit', { campground });
 }
 
 module.exports.updateCampground = async(req, res) => {
@@ -65,7 +58,7 @@ module.exports.updateCampground = async(req, res) => {
         await campground.updateOne({ $pull: { images: { filename: { $in: req.body.deleteImages } } } })
     }
     req.flash('success', 'Sucessfully updated campground!');
-    res.redirect(`/campgrounds/${campground._id}`);
+    res.redirect(`/communities/${community.name}`);
 }
 
 module.exports.deleteCampground = async(req, res) => {

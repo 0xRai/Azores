@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
-const User = require('../models/userSchema');
+const User = require('../models/user.schema');
 const catchAsync = require('../utils/catchAsync')
 const passport = require('passport');
-const users = require('../controllers/users');
+const users = require('../controllers/users.controller');
 
 router.route('/register')
     .get(users.renderRegister)

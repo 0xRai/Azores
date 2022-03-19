@@ -1,7 +1,7 @@
-const User = require('../models/userSchema');
+const User = require('../models/user.schema');
 
 module.exports.renderRegister = (req, res) => {
-    res.render('users/register');
+    res.render('user/register');
 }
 
 module.exports.register = async(req, res, next) => {
@@ -17,13 +17,13 @@ module.exports.register = async(req, res, next) => {
 
     } catch (e) {
         req.flash('error', e.message);
-        res.redirect('users/register');
+        res.redirect('user/register');
     }
 
 }
 
 module.exports.renderLogin = (req, res) => {
-    res.render('users/login');
+    res.render('user/login');
 }
 
 module.exports.login = async(req, res) => {

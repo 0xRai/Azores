@@ -1,0 +1,24 @@
+.community {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.community-banner {
+    padding-top: 3rem;
+    width: 100vw;
+    text-align: center;
+    background-color: aqua;
+}
+
+.community-banner img {
+    border-radius: 10rem;
+    outline: solid black;
+}
+
+.community-name {
+    font-weight: 700;
+    font-size: 3rem;
+}

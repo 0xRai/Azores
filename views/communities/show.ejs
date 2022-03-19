@@ -1,0 +1,20 @@
+<% layout('layouts/boilerplate') %>
+    <link rel="stylesheet" href="/stylesheets/communities.css">
+    <div class="community">
+        <header>
+            <div class="community-banner">
+                <img src="/images/testicon.png" alt="">
+                <h1 class="community-name">
+                    <%- community.name %>
+                </h1>
+            </div>
+        </header>
+    </div>
+    <h2>
+        Created by
+        <%- community.creator %>
+    </h2>
+
+    <script>
+        /*const campground = <%-JSON.stringify(community)%>;*/
+    </script>
