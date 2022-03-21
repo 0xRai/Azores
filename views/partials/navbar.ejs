@@ -6,10 +6,18 @@
         </a>
         <div class="navbar-section" id="navbarMid">
             <input type="text" name="search" id="searchBar" placeholder="Search Azores">
+            <button id="searchBarBtn" onclick="location.href='#'"></button>
         </div>
         <div class="navbar-section" id="navbarRight">
-            <a href="/user/login" class="navbar-link">Login</a>
-            <button onclick="location.href='/user/register'" type="button" class="navbar-link" id="registerBtn">Sign Up</button>
+            <% if (!currentUser) {%>
+                <a href="/user/login" class="navbar-link">Login</a>
+                <button onclick="location.href='/user/register'" type="button" class="navbar-link" id="registerBtn">Sign Up</button>
+                <% } else { %>
+                    <p class="navbar-text">Welcome,
+                        <%- currentUser.username %>
+                    </p>
+                    <button onclick="location.href='/user/logout'" type="button" class="navbar-link" id="logoutBtn">Log Out</button>
+                    <% } %>
         </div>
     </div>
 

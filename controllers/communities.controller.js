@@ -9,25 +9,22 @@ module.exports.renderNewForm = (req, res) => {
     res.render('communities/new');
 };
 
-module.exports.createCampground = async(req, res, next) => {
-    const campground = new Campground(req.body.campground);
-    campground.geometry = geoData.body.features[0].geometry;
-    campground.images = req.files.map(f => ({ url: f.path, filename: f.filename }));
-    campground.author = req.user._id;
-    await campground.save();
-    console.log(campground);
-    req.flash('success', 'Sucessfully made a new campground!');
-    res.redirect(`/c/${campground.name}`);
+module.exports.createCommunity = async(req, res, next) => {
+    const community = new Community(req.body.community);
+    community.creator = req.user._id;
+    await community.save();
+    console.log(community);
+    req.flash('success', 'Sucessfully made a new community!');
+    res.redirect(`/c/${community._id}`);
 };
 
 module.exports.showCommunity = async(req, res) => {
-    const community = await Community.findById(req.params.id)
-        // const community = await Community.findById(req.params.id) /*.populate({*/
-        //      path: 'reviews',
-        //      populate: {
-        //          path: 'author'
-        // };
-        /*}); .populate('author') */
+    const community = await Community.findById(req.params.id).populate({
+        path: 'posts',
+        populate: {
+            path: 'author',
+        }
+    }).populate('creator')
     if (!community) {
         req.flash('error', 'Community not found!');
         return res.redirect('/c')
@@ -37,33 +34,25 @@ module.exports.showCommunity = async(req, res) => {
 
 module.exports.renderEditForm = async(req, res) => {
     const { id } = req.params;
-    const campground = await Campground.findById(id);
-    if (!campground) {
-        req.flash('error', 'Campground not found!');
+    const community = await Community.findById(id);
+    if (!community) {
+        req.flash('error', 'Community not found!');
         return res.redirect('/communities')
     }
-    res.render('communities/edit', { campground });
+    res.render('communities/edit', { community });
 }
 
-module.exports.updateCampground = async(req, res) => {
+module.exports.updateCommunity = async(req, res) => {
     const { id } = req.params;
-    const campground = await Campground.findByIdAndUpdate(id, {...req.body.campground });
-    const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
-    campground.images.push(...imgs);
-    await campground.save();
-    if (req.body.deleteImages) {
-        for (let filename of req.body.deleteImages) {
-            await cloudinary.uploader.destroy(filename);
-        }
-        await campground.updateOne({ $pull: { images: { filename: { $in: req.body.deleteImages } } } })
-    }
-    req.flash('success', 'Sucessfully updated campground!');
-    res.redirect(`/communities/${community.name}`);
+    const community = await Community.findByIdAndUpdate(id, {...req.body.community });
+    await community.save();
+    req.flash('success', 'Sucessfully updated community!');
+    res.redirect(`/c/${community._id}`);
 }
 
-module.exports.deleteCampground = async(req, res) => {
+module.exports.deleteCommunity = async(req, res) => {
     const { id } = req.params;
-    await Campground.findByIdAndDelete(id);
-    req.flash('success', 'Sucessfully deleted campground!');
-    res.redirect('/campgrounds');
+    await Community.findByIdAndDelete(id);
+    req.flash('success', 'Sucessfully deleted community!');
+    res.redirect('/c');
 }

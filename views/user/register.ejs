@@ -1,49 +1,24 @@
 <% layout('layouts/boilerplate') %>
-
     <div class="form">
         <div class="form-title">
             <img class="form-logo" src="../images/azores.svg" alt="">
             <h1>Register</h1>
         </div>
-        <form action="/register" method="POST" class="form-validated">
+        <form action="#" method="POST" class="form-validated">
             <div class="form-input">
                 <input class="form-control email" type="text" name="email" id="email" autofocus required placeholder="Email">
-                <!-- <div class="valid-feedback">
-                    Looks good!
-                </div>
-                <div class="invalid-feedback">
-                    Please enter a valid username.
-                </div> -->
             </div>
             <div class="form-input">
                 <input class="form-control username" type="text" name="username" id="username" required placeholder="Username">
-                <!-- <div class="valid-feedback">
-                    Looks good!
-                </div>
-                <div class="invalid-feedback">
-                    Please enter a valid username.
-                </div> -->
             </div>
             <div class="form-input">
-                <input class="form-control password" type="password" name="password" id="password" placeholder="Password" required>
-                <!-- <div class="valid-feedback">
-                    Looks good!
-                </div>
-                <div class="invalid-feedback">
-                    Please enter a password.
-                </div> -->
+                <input class="form-control password" type="password" name="password" id="password" placeholder="Password (4-24 characters)" minlength="4" maxlength="24" required>
             </div>
             <div class="form-input">
                 <input class="form-control password" type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" required>
-                <!-- <div class="valid-feedback">
-                    Looks good!
-                </div>
-                <div class="invalid-feedback">
-                    Please enter a password.
-                </div> -->
             </div>
             <div class="form-input" id="checkbox">
-                <input type="checkbox" class="form-control" name="acceptToS" id="acceptToS">
+                <input type="checkbox" class="form-control" name="acceptToS" id="acceptToS" required>
                 <label for="acceptToS">I accept the <a onclick=" window.open('/terms','_blank')">Terms of Services</a>.</label>
             </div>
             <button class="form-button btn-primary">Sign Up</button>

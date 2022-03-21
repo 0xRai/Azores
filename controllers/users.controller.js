@@ -17,7 +17,7 @@ module.exports.register = async(req, res, next) => {
 
     } catch (e) {
         req.flash('error', e.message);
-        res.redirect('user/register');
+        res.redirect('./register');
     }
 
 }
@@ -28,7 +28,7 @@ module.exports.renderLogin = (req, res) => {
 
 module.exports.login = async(req, res) => {
     req.flash('success', 'Welcome back!');
-    const redirectUrl = req.session.returnTo || '/';
+    const redirectUrl = req.session.returnTo || './';
     delete req.session.returnTo;
     res.redirect(redirectUrl);
 }

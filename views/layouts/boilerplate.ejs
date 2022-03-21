@@ -15,8 +15,24 @@
 
 <body>
     <%- include('../partials/navbar') %>
-        <%- body %>
+        <% if ( error != '' ) { %>
+            <div class="flash-alert alert-warning" id="alert">
+                <p class="flash-alert-message">Message:
+                    <%= error %>
+                </p>
+            </div>
+            <% } %>
+                <% if ( success != '' ) { %>
+                    <div class="flash-alert alert-success" id="alert">
+                        <p class="flash-alert-message">Message:
+                            <%= success %>
+                        </p>
+                    </div>
+                    <% } %>
+                        <%- body %>
 
 </body>
+<script src="/javascripts/alerts.js"></script>
+<script src="/javascripts/searchBar.js"></script>
 
 </html>

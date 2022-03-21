@@ -12,9 +12,36 @@
     </div>
     <h2>
         Created by
-        <%- community.creator %>
+        <%- community.creator.username %>
     </h2>
-
+    <ul>
+        <% for (let post of community.posts) { %>
+            <div class="post" mb-3>
+                <div class="post-row">
+                    <div class="post-section">
+                        <%- post.rating %>
+                    </div>
+                    <div class="post-section">
+                        <img src="/images/testicon.png" alt="" class="img-fluid">
+                    </div>
+                    <div class="post-section">
+                        <a href="/c/<%= community._id %> /posts/<%= post._id%>" class="post-title">
+                            <%- post.title %>
+                        </a>
+                        <p>
+                            Submitted by
+                            <a href="">
+                                <%- post.author.username %>
+                            </a>
+                            on
+                            <%- post.dateCreated %>
+                        </p>
+                        <p> 0 comments</p>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+    </ul>
     <script>
-        /*const campground = <%-JSON.stringify(community)%>;*/
+        // const community = <%- JSON.stringify(community) %>;
     </script>

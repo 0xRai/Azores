@@ -23,6 +23,8 @@ const mongoSanitize = require('express-mongo-sanitize');
 const indexRouter = require('./routes/index.routes');
 const usersRouter = require('./routes/user.routes');
 const communityRouter = require('./routes/community.routes');
+const postRouter = require('./routes/post.routes');
+const commentRouter = require('./routes/comment.routes')
 
 const app = express();
 
@@ -47,8 +49,9 @@ app.set('view engine', 'ejs');
 app.engine('ejs', ejsMate);
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 const sessionConfig = {
@@ -68,15 +71,34 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 app.use(flash());
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+app.use((req, res, next) => {
+    if (!['/user/login', '/'].includes(req.originalUrl)) {
+        req.session.returnTo = req.originalUrl;
+    };
+    res.locals.currentUser = req.user;
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+})
 
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
 app.use('/c', communityRouter);
+app.use('/c/:id/posts', postRouter);
+app.use('/c/:id/posts/:id/', commentRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    next(createError(404));
-});
+app.all('*', (req, res, next) => {
+    next(new ExpressError('Page Not Found', 404));
+})
+
 
 // error handler
 app.use(function(err, req, res, next) {

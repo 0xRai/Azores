@@ -1,19 +1,22 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const passportLocalMongoose = require('passport-local-mongoose');
+const Post = require('./post.schema')
+
+const opts = { toJSON: { virtuals: true } };
 
 const CommunitySchema = new Schema({
     name: {
         type: String,
-        required: true,
+        unique: true
     },
     creator: {
-        type: String,
-    }
-    // creator: {
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'Users'
-    // },
-})
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    posts: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Post'
+    }],
+}, opts);
 
 module.exports = mongoose.model('Community', CommunitySchema);

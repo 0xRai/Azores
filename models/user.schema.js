@@ -8,9 +8,11 @@ const UserSchema = new Schema({
         required: true,
         unique: true
     },
-    nameFirst: String,
-    nameLast: String,
-    location: String,
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+    },
     roles: String,
     community: {
         type: Schema.Types.ObjectId,

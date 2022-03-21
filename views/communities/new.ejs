@@ -1,58 +1,13 @@
 <% layout('layouts/boilerplate') %>
-    <div class="row">
-        <h1 class="text-center">New Campground</h1>
-        <div class="col-md-6 offset-md-3">
-            <form action="/campgrounds" method="POST" class="validated-form" novalidate enctype="multipart/form-data">
-                <div class="mb-3">
-                    <label class="form-label" for="title">Title</label>
-                    <input class="form-control" type="text" name="campground[title]" id="title" required>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                    <div class="invalid-feedback">
-                        Please enter the title of the campground.
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" for="location">Location</label>
-                    <input class="form-control" type="text" name="campground[location]" id="location" required>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                    <div class="invalid-feedback">
-                        Please enter the City and State of the campground.
-                    </div>
-                </div>
-                <label class="form-label" for="price">Price</label>
-                <div class="input-group mb-3">
-                    <span class="input-group-text">$</span>
-                    <input type="text" class="form-control" name="campground[price]" id="price" required>
-                    <span class="input-group-text ">.00</span>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                    <div class="invalid-feedback">
-                        Please enter the price for the stay.
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="image" class="form-label">Add images</label>
-                    <input class="form-control" type="file" id="image" multiple name="image">
-                </div>
-                <div class="mb-3 ">
-                    <label class="form-label" for="location">Description</label>
-                    <textarea class="form-control" type="text" name="campground[description]" id="description" required></textarea>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                    <div class="invalid-feedback">
-                        Please give a brief detail of the campground.
-                    </div>
-                </div>
-                <div class="mb-3 ">
-                    <button class="btn btn-success ">Add Campground</button>
-                </div>
-            </form>
-            <a href="/campgrounds ">Back to All Campgrounds</a>
+    <div class="form">
+        <div class="form-title">
+            <img class="form-logo" src="/images/azores.svg" alt="">
+            <h1>New Community</h1>
         </div>
+        <form action="/c" method="POST" class="form-validated">
+            <div class="form-input">
+                <input class="form-control important" type="text" name="community[name]" id="name" autofocus required placeholder="Community Name">
+            </div>
+            <button class="form-button btn-primary">Add Community</button>
+        </form>
     </div>

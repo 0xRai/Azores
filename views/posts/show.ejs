@@ -1,0 +1,70 @@
+<% layout('layouts/boilerplate') %>
+    <link rel="stylesheet" href="/stylesheets/posts.css">
+    <div class="post" mb-3>
+        <div class="post-row">
+            <div class="post-section">
+                <p>
+                    <%- post.rating %>
+                </p>
+            </div>
+            <div class="post-section">
+                <img src="/images/testicon.png" alt="" class="img-fluid">
+            </div>
+            <div class="post-section">
+                <p>
+                    <%- post.title %>
+                </p>
+
+                <p>
+                    Submitted by
+                    <a href="">
+                        <%- post.author.username %>
+                    </a>
+                    on
+                    <%- post.dateCreated %>
+                </p>
+
+                <hr>
+                <div class="post-section">
+                    <p>
+                        <%- post.body %>
+                    </p>
+                    <p> 0 comments</p>
+                </div>
+                <hr>
+                <div class="post-section">
+                    <p>all 0 comments</p>
+                </div>
+                <% if(currentUser) { %>
+                    <form action="<%= post._id %>/comments" method="POST" novalidate>
+                        <div class="post-section">
+                            <textarea name="comment[body]" id="body" cols="70" rows="10"></textarea>
+                        </div>
+                        <div class="post-section">
+                            <button>Submit</button>
+                        </div>
+                    </form>
+                    <% } %>
+                        <!-- COMMENTS -->
+                        <hr>
+                        <div class="post" mb-3>
+                            <div class="post-row">
+                                <div class="post-section">
+                                    <% for (let comment of post.comments) { %>
+                                        <p>
+                                            <a href="">
+                                                <%- comment.author.username %>
+                                            </a> •
+                                            <%- comment.rating %>
+                                                •
+                                                <%- comment.dateCreated %>
+                                        </p>
+                                        <p>
+                                            <%- comment.body %>
+                                        </p>
+                                        <hr>
+                                        <% } %>
+
+                                </div>
+                            </div>
+                        </div>
