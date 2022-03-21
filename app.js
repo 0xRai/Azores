@@ -92,7 +92,7 @@ app.use('/', indexRouter);
 app.use('/user', usersRouter);
 app.use('/c', communityRouter);
 app.use('/c/:id/posts', postRouter);
-app.use('/c/:id/posts/:id/', commentRouter);
+app.use('/c/:id/posts/:id/comments', commentRouter);
 
 // catch 404 and forward to error handler
 app.all('*', (req, res, next) => {

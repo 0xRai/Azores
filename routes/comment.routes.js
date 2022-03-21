@@ -4,12 +4,8 @@ const catchAsync = require('../utils/catchAsync');
 const { validateComment, isLoggedIn, isCommentAuthor } = require('../middleware');
 const comments = require('../controllers/comments.controller');
 
-router.route('/comments')
-    .get(function(req, res) {
-        res.redirect('/');
-    })
-    .post(isLoggedIn, validateComment, catchAsync(comments.createComment))
+router.post('/', isLoggedIn, validateComment, catchAsync(comments.createComment))
 
-router.delete('/:commentId', isLoggedIn, catchAsync(comments.deleteComment))
+router.delete('/:commentId', isLoggedIn, isCommentAuthor, catchAsync(comments.deleteComment))
 
 module.exports = router;

@@ -10,9 +10,9 @@ const CommentSchema = new Schema({
         type: Number,
         default: 0,
     },
-    community: {
+    post: {
         type: Schema.Types.ObjectId,
-        ref: 'Community',
+        ref: 'Post',
     },
     author: {
         type: Schema.Types.ObjectId,

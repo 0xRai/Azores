@@ -23,6 +23,13 @@
                     on
                     <%- post.dateCreated %>
                 </p>
+                <p>
+                    <% if(currentUser && post.author.equals(currentUser._id)) { %>
+                        <form action="../posts/<%= post._id %>?_method=DELETE" method="POST">
+                            <button>delete</button>
+                        </form>
+                        <% } %>
+                </p>
 
                 <hr>
                 <div class="post-section">
@@ -62,8 +69,13 @@
                                         <p>
                                             <%- comment.body %>
                                         </p>
-                                        <hr>
-                                        <% } %>
+                                        <% if(currentUser && comment.author.equals(currentUser._id)) { %>
+                                            <form action="../posts/<%= post._id %>/comments/<%= comment._id%>?_method=DELETE" method="POST">
+                                                <button>delete</button>
+                                            </form>
+                                            <% } %>
+                                                <hr>
+                                                <% } %>
 
                                 </div>
                             </div>
