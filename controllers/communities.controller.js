@@ -37,7 +37,7 @@ module.exports.renderEditForm = async(req, res) => {
     const community = await Community.findById(id);
     if (!community) {
         req.flash('error', 'Community not found!');
-        return res.redirect('/communities')
+        return res.redirect('/c')
     }
     res.render('communities/edit', { community });
 }

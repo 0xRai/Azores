@@ -1,68 +1,16 @@
 <% layout('layouts/boilerplate') %>
-    <div class="row">
-        <h1 class="text-center">Edit Community</h1>
-        <div class="col-md-6 offset-md-3">
-            <form action="/c/<%=community._id%>?_method=PUT" method="POST" class="validated-form" novalidate enctype="multipart/form-data">
-                <div class="mb-3">
-                    <label class="form-label" for="title">Title</label>
-                    <input class="form-control" type="text" name="community[title]" id="title" value="<%=community.title %>" required>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                    <div class="invalid-feedback">
-                        Please enter the title of the community.
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" for="location">Location</label>
-                    <input class="form-control" type="text" name="community[location]" id="location" value="<%= community.location%>" required>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                    <div class="invalid-feedback">
-                        Please enter the City and State of the community.
-                    </div>
-                </div>
-                <label class="form-label" for="price">Price</label>
-                <div class="input-group mb-3">
-                    <span class="input-group-text">$</span>
-                    <input type="text" class="form-control" name="community[price]" id="price" value="<%=community.price%>" required>
-                    <span class="input-group-text ">.00</span>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                    <div class="invalid-feedback">
-                        Please enter the price for the stay.
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <div class="mb-3">
-                        <label for="image" class="form-label">Add additional images</label>
-                        <input class="form-control" type="file" id="image" multiple name="image">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="location">Description</label>
-                        <textarea class="form-control" type="text" name="community[description]" id="description" required><%= community.description %></textarea>
-                        <div class="valid-feedback">
-                            Looks good!
-                        </div>
-                        <div class="invalid-feedback">
-                            Please give a brief detail of the community.
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <% community.images.forEach(function (img, i) { %>
-                            <img src="<%=img.thumbnail%> " class="img-thumbnail" alt="">
-                            <div class="form-check-inline">
-                                <input type="checkbox" name="deleteImages[]" id="image-<%=i%> " value="<%=img.filename%>">
-                            </div>
-                            <label for="image-<%=i%> ">Delete?</label>
-                            <% }) %>
-                    </div>
-                    <div class="mb-3 ">
-                        <button class="btn btn-info ">Update Community</button>
-                    </div>
-            </form>
-            <a href="/communitys/<%= community._id%>">Back to Community</a>
-            </div>
+    <div class="form">
+        <div class="form-title">
+            <img class="form-logo" src="/images/azores.svg" alt="">
+            <h1>Edit
+                <%- community.name %>
+            </h1>
         </div>
+        <form action="/c/<%= community._id %>?_method=PUT" method="POST" class="form-validated">
+            <div class="form-input">
+                <input class="form-control important" type="text" name="community[name]" id="name" autofocus required placeholder="Community Name">
+            </div>
+            <button class="form-button btn-primary">Edit Community</button>
+        </form>
+        <a href="/c/<%= community._id%>">Back to Community</a>
+    </div>

@@ -20,4 +20,6 @@ router.route('/:id')
     .put(isLoggedIn, validatePost, catchAsync(posts.updatePost))
     .delete(isLoggedIn, isPostAuthor, catchAsync(posts.deletePost))
 
+router.get('/:id/edit', isLoggedIn, isPostAuthor, catchAsync(posts.renderEditForm))
+
 module.exports = router;
