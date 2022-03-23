@@ -1,8 +1,9 @@
 const ExpressError = require('./utils/ExpressError');
 const { communitySchema, postSchema, commentSchema } = require('./schema');
 const Community = require('./models/community.schema');
-const Post = require('./models/post.schema')
-const Comment = require('./models/comment.schema')
+const Post = require('./models/post.schema');
+const Comment = require('./models/comment.schema');
+const moment = require('moment');
 
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
@@ -67,5 +68,11 @@ module.exports.isCommentAuthor = async(req, res, next) => {
         req.flash('error', 'You do not have permission to perform that action');
         return res.redirect(`/c/${id}/posts/${postId}`);
     }
+    next();
+}
+
+module.exports.postDateShort = async(req, res, next) => {
+    const post = await Post.findById(req.params.id);
+    const dateShort = moment(post.dateCreated).format('lll');
     next();
 }

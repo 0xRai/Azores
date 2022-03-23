@@ -17,6 +17,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user.schema');
 const helmet = require('helmet');
+const moment = require('moment');
 
 const mongoSanitize = require('express-mongo-sanitize');
 
@@ -87,7 +88,7 @@ app.use((req, res, next) => {
     res.locals.error = req.flash('error');
     next();
 })
-
+app.locals.moment = require('moment');
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
 app.use('/c', communityRouter);

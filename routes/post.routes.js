@@ -1,10 +1,8 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
 const catchAsync = require('../utils/catchAsync');
-const Community = require('../models/community.schema');
-const Post = require('../models/post.schema');
 const { postSchema } = require('../schema');
-const { validatePost, isLoggedIn, isPostAuthor } = require('../middleware');
+const { validatePost, isLoggedIn, isPostAuthor, postDateShort } = require('../middleware');
 const posts = require('../controllers/posts.controller');
 
 router.route('/')

@@ -17,6 +17,24 @@ const CommunitySchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Post'
     }],
+    description: {
+        type: String,
+        default: "Just a generic description!"
+    },
+    dateCreated: {
+        type: Date,
+        default: Date.now,
+    }
 }, opts);
+
+CommunitySchema.post('findOneAndDelete', async function(doc) {
+    if (doc) {
+        await Post.deleteMany({
+            _id: {
+                $in: doc.posts
+            }
+        })
+    }
+})
 
 module.exports = mongoose.model('Community', CommunitySchema);

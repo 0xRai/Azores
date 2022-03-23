@@ -1,5 +1,8 @@
 <% layout('layouts/boilerplate') %>
     <link rel="stylesheet" href="/stylesheets/posts.css">
+    <div class="community-back">
+        <img onclick="location.href='/c/<%= post.community %>'" src="/images/testicon.png" alt="">
+    </div>
     <div class="post" mb-3>
         <div class="post-row">
             <div class="post-section">
@@ -8,7 +11,7 @@
                 </p>
             </div>
             <div class="post-section">
-                <img src="/images/testicon.png" alt="" class="img-fluid">
+                <img onclick="href" src="/images/testicon.png" alt="" class="img-fluid">
             </div>
             <div class="post-section">
                 <p>
@@ -21,7 +24,7 @@
                         <%- post.author.username %>
                     </a>
                     on
-                    <%- post.dateCreated %>
+                    <%- moment(post.dateCreated).format('lll'); %>
                 </p>
                 <p>
                     <% if(currentUser && post.author.equals(currentUser._id)) { %>
@@ -42,7 +45,8 @@
                 </div>
                 <hr>
                 <div class="post-section">
-                    <p>all 0 comments</p>
+                    <p>all
+                        <%- post.comments.length %> comments</p>
                 </div>
                 <% if(currentUser) { %>
                     <form action="<%= post._id %>/comments" method="POST" novalidate>
@@ -66,7 +70,7 @@
                                             </a> •
                                             <%- comment.rating %>
                                                 •
-                                                <%- comment.dateCreated %>
+                                                <%- moment(comment.dateCreated).format('lll') %>
                                         </p>
                                         <p>
                                             <%- comment.body %>

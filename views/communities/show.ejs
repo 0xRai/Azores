@@ -7,6 +7,9 @@
                 <h1 class="community-name">
                     <%- community.name %>
                 </h1>
+                <p>
+                    <%- community.description %>
+                </p>
             </div>
         </header>
     </div>
@@ -49,7 +52,8 @@
                                             on
                                             <%- post.dateCreated %>
                                         </p>
-                                        <p> 0 comments</p>
+                                        <p>
+                                            <%- post.comments.length %> comments</p>
                                     </div>
                                 </div>
                             </div>
