@@ -4,7 +4,6 @@ const User = require('./models/user.schema')
 const Community = require('./models/community.schema');
 const Post = require('./models/post.schema');
 const Comment = require('./models/comment.schema');
-const moment = require('moment');
 
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {

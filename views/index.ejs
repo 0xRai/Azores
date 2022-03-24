@@ -1,36 +1,15 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>
-        <%= title %>
-    </title>
-    <link rel="shortcut icon" href="./images/azores.svg" type="image/x-icon">
-    <link rel="stylesheet" href="./stylesheets/reset.css">
-    <link rel='stylesheet' href='./stylesheets/style.css' />
-</head>
-
-<body>
-    <%- include('./partials/navbar') %>
-        <% if ( error != '' ) { %>
-            <div class="flash-alert alert-warning" id="alert">
-                <p class="flash-alert-message">Message:
-                    <%= error %>
-                </p>
-            </div>
-            <% } %>
-                <% if ( success != '' ) { %>
-                    <div class="flash-alert alert-success" id="alert">
-                        <p class="flash-alert-message">
-                            <%= success %>
-                        </p>
-                    </div>
-                    <% } %>
-
-
-</body>
-<script src="/javascripts/dropdown.js"></script>
-<script src="/javascripts/alerts.js"></script>
-<script src="/javascripts/searchBar.js"></script>
-
-</html>
+<% layout('layouts/boilerplate') %>
+    <% if ( error !='' ) { %>
+        <div class="flash-alert alert-warning" id="alert">
+            <p class="flash-alert-message">Message:
+                <%= error %>
+            </p>
+        </div>
+        <% } %>
+            <% if ( success !='' ) { %>
+                <div class="flash-alert alert-success" id="alert">
+                    <p class="flash-alert-message">
+                        <%= success %>
+                    </p>
+                </div>
+                <% } %>
