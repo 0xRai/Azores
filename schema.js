@@ -26,6 +26,7 @@ const joi = BaseJoi.extend(extension);
 module.exports.communitySchema = joi.object({
     community: joi.object({
         name: joi.string().required().escapeHTML(),
+        description: joi.string().escapeHTML()
     }).required(),
 });
 

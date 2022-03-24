@@ -18,4 +18,12 @@ router.route('/:id')
 
 router.get('/:id/edit', isLoggedIn, isCreator, catchAsync(communities.renderEditForm));
 
+router.route('/:id/join')
+    .post(isLoggedIn, catchAsync(communities.joinCommunity))
+    .put(isLoggedIn, catchAsync(communities.leaveCommunity))
+    .get(async function(req, res) {
+        const community = await Community.findById(req.params.id);
+        res.redirect(`/c/${community._id}`);
+    })
+
 module.exports = router;

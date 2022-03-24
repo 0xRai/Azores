@@ -2,14 +2,16 @@
     <h1>All Communities</h1>
     <ul>
         <% for (let community of communities) { %>
-            <div class="card mb-3" mb-3>
-                <div class="row">
-                    <div class="col-md-8">
+            <div class="card" mb-3>
+                <div class="card-row">
+                    <div class="card-section">
+                        <img src="/images/testicon.png" alt="" class="img-fluid">
                         <div class="card-body">
                             <h5 class="card-title">
                                 <%= community.name %>
                             </h5>
-                            <a href="/c/<%= community._id%>" class="form-button btn-primary">View <%= community.name %></a>
+                            <a href="/c/<%= community._id%>" class="form-button btn-primary">View <%= community.name %>
+                            </a>
                         </div>
                     </div>
                 </div>

@@ -49,3 +49,22 @@
 .post-section a {
     color: blue;
 }
+
+
+/*  ===========
+    Sidebar
+    ===========  */
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 15rem;
+    position: absolute;
+    z-index: 2;
+    top: 26.2rem;
+    right: 0;
+    background-color: lightgray;
+    overflow-x: hidden;
+    align-items: center;
+}

@@ -8,8 +8,6 @@ module.exports.createComment = async(req, res) => {
     const comment = new Comment(req.body.comment);
     comment.author = req.user._id;
     comment.post = req.params.id;
-    console.log(comment);
-    console.log(post);
     await comment.save();
     post.comments.push(comment);
     await post.save();

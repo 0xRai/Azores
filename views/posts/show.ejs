@@ -45,8 +45,15 @@
                 </div>
                 <hr>
                 <div class="post-section">
-                    <p>all
-                        <%- post.comments.length %> comments</p>
+                    <% if(post.comments.length===1) {%>
+                        <p>all
+                            <%- post.comments.length %> comment
+                        </p>
+                        <% } else {%>
+                            <p>all
+                                <%- post.comments.length %> comments
+                            </p>
+                            <% } %>
                 </div>
                 <% if(currentUser) { %>
                     <form action="<%= post._id %>/comments" method="POST" novalidate>

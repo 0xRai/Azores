@@ -8,7 +8,8 @@
         </div>
         <form action="/c/<%= community._id %>?_method=PUT" method="POST" class="form-validated">
             <div class="form-input">
-                <input class="form-control important" type="text" name="community[name]" id="name" autofocus required placeholder="Community Name">
+                <input class="form-control important" type="text" name="community[name]" id="name" autofocus required placeholder="Community Name" value="<%- community.name %> ">
+                <input class="form-control important" type="text" name="community[description]" id="description" placeholder="Community Description" value="<%- community.description %> ">
             </div>
             <button class="form-button btn-primary">Edit Community</button>
         </form>

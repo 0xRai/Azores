@@ -14,9 +14,10 @@ const UserSchema = new Schema({
         unique: true,
     },
     roles: String,
-    community: {
+    memberships: {
         type: Schema.Types.ObjectId,
-        ref: 'Community'
+        ref: 'Community',
+        unique: true,
     },
     posts: {
         type: Schema.Types.ObjectId,

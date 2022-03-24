@@ -334,7 +334,7 @@ p {
     max-height: 4rem;
     overflow: hidden;
     max-width: 100vw;
-    z-index: 2;
+    z-index: 3;
 }
 
 .navbar a {

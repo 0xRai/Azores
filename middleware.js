@@ -1,5 +1,6 @@
 const ExpressError = require('./utils/ExpressError');
 const { communitySchema, postSchema, commentSchema } = require('./schema');
+const User = require('./models/user.schema')
 const Community = require('./models/community.schema');
 const Post = require('./models/post.schema');
 const Comment = require('./models/comment.schema');
@@ -14,6 +15,9 @@ module.exports.isLoggedIn = (req, res, next) => {
 }
 
 module.exports.validateCommunity = (req, res, next) => {
+    if (req.body.community.description === '') {
+        req.body.community.description = 'Just a generic description!'
+    }
     const { error } = communitySchema.validate(req.body);
 
     if (error) {
@@ -71,8 +75,11 @@ module.exports.isCommentAuthor = async(req, res, next) => {
     next();
 }
 
-module.exports.postDateShort = async(req, res, next) => {
-    const post = await Post.findById(req.params.id);
-    const dateShort = moment(post.dateCreated).format('lll');
+module.exports.validateJoin = (req, res, next) => {
+    const { error } = userSchema.validate(req.body);
+    if (error) {
+        const msg = error.details.map(el => el.message).join(',')
+        throw new ExpressError(msg, 400)
+    }
     next();
 }
