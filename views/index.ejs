@@ -13,3 +13,16 @@
                     </p>
                 </div>
                 <% } %>
+                    <% try { %>
+                        <%for (let post of posts) { %>
+                            <p>
+                                <%- post.title %>
+                            </p>
+                            <p>
+                                <%- post.body %>
+                            </p>
+                            <hr>
+                            <% } %>
+                                <% } catch { %>
+                                    <p>No content :(</p>
+                                    <% } %>

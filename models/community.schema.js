@@ -39,7 +39,12 @@ CommunitySchema.post('findOneAndDelete', async function(doc) {
                 $in: doc.posts
             }
         })
+        let userCount = await User.count({ memberships: doc._id });
+        while (userCount !== 0) {
+            const user = await User.find({ memberships: doc._id })
+            await User.findByIdAndUpdate(user, { $pull: { memberships: doc._id } })
+            userCount--;
+        }
     }
 })
-
 module.exports = mongoose.model('Community', CommunitySchema);

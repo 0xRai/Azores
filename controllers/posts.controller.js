@@ -19,7 +19,6 @@ module.exports.createPost = async(req, res, next) => {
     community.posts.push(post);
     await post.save();
     await community.save();
-    console.log(post);
     req.flash('success', 'Sucessfully made a new post!');
     res.redirect(`/c/${community._id}/posts/${post._id}`);
 };

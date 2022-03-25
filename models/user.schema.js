@@ -17,7 +17,6 @@ const UserSchema = new Schema({
     memberships: {
         type: Schema.Types.ObjectId,
         ref: 'Community',
-        unique: true,
     },
     posts: {
         type: Schema.Types.ObjectId,
@@ -29,5 +28,6 @@ const UserSchema = new Schema({
     }
 })
 UserSchema.plugin(passportLocalMongoose);
+
 
 module.exports = mongoose.model('User', UserSchema);
