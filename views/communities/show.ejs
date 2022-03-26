@@ -80,11 +80,11 @@
                         </a>
                         <p>
                             Submitted by
-                            <a href="">
+                            <a href="/user/<%= post.author._id %> ">
                                 <%- post.author.username %>
                             </a>
-                            on
-                            <%- post.dateCreated %>
+                            •
+                            <%- moment(post.dateCreated).startOf('day').fromNow(); %>
                         </p>
                         <p>
                             <%- post.comments.length %> comments

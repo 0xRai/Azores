@@ -1,28 +1,10 @@
 <% layout('layouts/boilerplate') %>
-    <% if ( error !='' ) { %>
-        <div class="flash-alert alert-warning" id="alert">
-            <p class="flash-alert-message">Message:
-                <%= error %>
+    <% try { %>
+        <% for (let community of communities) { %>
+            <p>
+                <%- community.name %>
             </p>
-        </div>
-        <% } %>
-            <% if ( success !='' ) { %>
-                <div class="flash-alert alert-success" id="alert">
-                    <p class="flash-alert-message">
-                        <%= success %>
-                    </p>
-                </div>
-                <% } %>
-                    <% try { %>
-                        <%for (let post of posts) { %>
-                            <p>
-                                <%- post.title %>
-                            </p>
-                            <p>
-                                <%- post.body %>
-                            </p>
-                            <hr>
-                            <% } %>
-                                <% } catch { %>
-                                    <p>No content :(</p>
-                                    <% } %>
+            <% } %>
+                <% } catch { %>
+                    <p>No content :(</p>
+                    <% } %>

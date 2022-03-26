@@ -38,3 +38,8 @@ module.exports.logout = (req, res) => {
     req.flash('success', 'Sucessfully logged out!')
     res.redirect('/');
 }
+
+module.exports.showUser = async(req, res) => {
+    const user = await User.findById(req.params.id);
+    res.render('user/show', { user })
+}

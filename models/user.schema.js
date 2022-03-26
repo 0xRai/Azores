@@ -13,11 +13,11 @@ const UserSchema = new Schema({
         required: true,
         unique: true,
     },
-    roles: String,
-    memberships: {
+    memberships: [{
         type: Schema.Types.ObjectId,
         ref: 'Community',
-    },
+    }],
+    roles: String,
     posts: {
         type: Schema.Types.ObjectId,
         ref: 'Posts'

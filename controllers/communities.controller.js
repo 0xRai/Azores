@@ -1,7 +1,7 @@
 const e = require('connect-flash');
 const Community = require('../models/community.schema');
 const User = require('../models/user.schema')
-
+const mongoose = require('mongoose')
 module.exports.index = async(req, res) => {
     const communities = await Community.find({});
     res.render('communities/index', { communities })

@@ -37,6 +37,10 @@ body {
     Components
     ===========  */
 
+.bold {
+    font-weight: 500;
+}
+
 a {
     color: var(--lightblue);
     transition-property: all;

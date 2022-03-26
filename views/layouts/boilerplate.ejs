@@ -15,16 +15,16 @@
 
 <body>
     <%- include('../partials/navbar') %>
-        <% if ( error != '' ) { %>
+        <% if ( error !='' ) { %>
             <div class="flash-alert alert-warning" id="alert">
-                <p class="flash-alert-message">Message:
+                <p class="flash-alert-message">
                     <%= error %>
                 </p>
             </div>
             <% } %>
-                <% if ( success != '' ) { %>
+                <% if ( success !='' ) { %>
                     <div class="flash-alert alert-success" id="alert">
-                        <p class="flash-alert-message">Message:
+                        <p class="flash-alert-message">
                             <%= success %>
                         </p>
                     </div>

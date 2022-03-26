@@ -3,7 +3,6 @@ const Comment = require('../models/comment.schema');
 const Community = require('../models/community.schema')
 
 module.exports.createComment = async(req, res) => {
-    const community = await Community.findById(req.params.id).Post;
     const post = await Post.findById(req.params.id);
     const comment = new Comment(req.body.comment);
     comment.author = req.user._id;

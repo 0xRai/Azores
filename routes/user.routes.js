@@ -20,6 +20,9 @@ router.route('/login')
 
 router.get('/logout', users.logout)
 
+router.route('/:id')
+    .get(catchAsync(users.showUser))
+
 
 
 module.exports = router;
