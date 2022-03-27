@@ -4,13 +4,16 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    max-width: 100vw;
 }
 
 .community-banner {
     padding-top: 3rem;
-    width: 100vw;
+    width: 100%;
     text-align: center;
     background-color: aqua;
+    max-width: 100vw;
+    background-size: contain;
 }
 
 .community-banner img {
@@ -62,7 +65,7 @@
     width: 15rem;
     position: absolute;
     z-index: 2;
-    top: 26.2rem;
+    top: 27.2rem;
     right: 0;
     background-color: lightgray;
     overflow-x: hidden;
