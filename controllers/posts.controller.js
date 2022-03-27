@@ -1,5 +1,6 @@
 const Community = require('../models/community.schema');
 const Post = require('../models/post.schema');
+const User = require('../models/user.schema')
 
 module.exports.index = async(req, res) => {
     const posts = await Post.find({});
@@ -13,11 +14,14 @@ module.exports.renderNewForm = async(req, res) => {
 
 module.exports.createPost = async(req, res, next) => {
     const community = await Community.findById(req.params.id);
+    const user = await User.findById(req.user._id);
     const post = new Post(req.body.post);
     post.author = req.user._id;
     post.community = req.params.id;
+    user.posts.push(post);
     community.posts.push(post);
     await post.save();
+    await user.save();
     await community.save();
     req.flash('success', 'Sucessfully made a new post!');
     res.redirect(`/c/${community._id}/posts/${post._id}`);

@@ -18,14 +18,14 @@ const UserSchema = new Schema({
         ref: 'Community',
     }],
     roles: String,
-    posts: {
+    posts: [{
         type: Schema.Types.ObjectId,
         ref: 'Posts'
-    },
-    comments: {
+    }],
+    comments: [{
         type: Schema.Types.ObjectId,
         ref: 'Comments'
-    }
+    }]
 })
 UserSchema.plugin(passportLocalMongoose);
 

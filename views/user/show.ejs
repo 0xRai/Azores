@@ -1,1 +1,11 @@
 <% layout('layouts/boilerplate') %>
+    <img src="/images/testicon.png" alt="">
+    <p>Username:
+        <%- user.username %>
+    </p>
+    <p>Posts:
+        <%- user.posts.length %>
+    </p>
+    <p>Comments:
+        <%- user.comments.length %>
+    </p>

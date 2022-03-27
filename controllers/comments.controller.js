@@ -1,14 +1,17 @@
 const Post = require('../models/post.schema');
 const Comment = require('../models/comment.schema');
-const Community = require('../models/community.schema')
+const User = require('../models/user.schema')
 
 module.exports.createComment = async(req, res) => {
     const post = await Post.findById(req.params.id);
     const comment = new Comment(req.body.comment);
+    const user = await User.findById(req.user._id);
     comment.author = req.user._id;
     comment.post = req.params.id;
-    await comment.save();
+    user.comments.push(comment);
     post.comments.push(comment);
+    await user.save();
+    await comment.save();
     await post.save();
     req.flash('success', 'Created new review!');
     res.redirect(`../../posts/${post._id}`);
