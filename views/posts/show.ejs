@@ -46,10 +46,10 @@
 
                     <% if(currentUser && post.author.equals(currentUser._id)) { %>
                         <div class="post-row">
-                            <form action="../posts/<%= post._id %>/edit">
+                            <form action="/c/<%= post.community._id %>/posts/<%= post._id %>/edit">
                                 <button class="no-button post-small">Edit</button>
                             </form>
-                            <form action="../posts/<%= post._id %>?_method=DELETE" method="POST">
+                            <form action="/c/<%= post.community._id %>/posts/<%= post._id %>?_method=DELETE" method="POST">
                                 <button class="no-button post-small">Delete</button>
                             </form>
                         </div>
@@ -71,7 +71,7 @@
                     <% } %>
         </div>
         <% if(currentUser) { %>
-            <form action="../posts/<%= post._id %>/comments" method="POST" novalidate>
+            <form action="/c/<%= post.community._id %>/posts/<%= post._id %>/comments" method="POST" novalidate>
                 <div class="post-section">
                     <textarea name="comment[body]" id="body" cols="70" rows="10"></textarea>
                 </div>
@@ -105,7 +105,7 @@
                                 </div>
                                 <% if(currentUser && comment.author.equals(currentUser._id)) { %>
                                     <div class="post-row">
-                                        <form action="../posts/<%= post._id %>/comments/<%= comment._id%>?_method=DELETE" method="POST">
+                                        <form action="/c/<%= post.community._id %>/posts/<%= post._id %>/comments/<%= comment._id%>?_method=DELETE" method="POST">
                                             <button class="no-button post-small">Delete</button>
                                         </form>
                                     </div>

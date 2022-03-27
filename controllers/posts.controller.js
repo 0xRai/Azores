@@ -29,14 +29,14 @@ module.exports.createPost = async(req, res, next) => {
 };
 
 module.exports.showPost = async(req, res) => {
-    const community = await Community.findById(req.params.id)
+
     const post = await Post.findById(req.params.id).populate({
         path: 'comments',
         populate: {
             path: 'author',
         }
     }).populate('author').populate('community');
-    console.log(post)
+    console.log(`THIS IS POST: ${post}`)
     if (!post) {
         req.flash('error', 'Post not found!');
         return res.redirect(`/c/${post.community}`)
