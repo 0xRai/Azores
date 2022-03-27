@@ -390,7 +390,8 @@ p {
 }
 
 #navbarMid {
-    flex-basis: 30rem;
+    flex-basis: 25rem;
+    max-width: 25rem;
 }
 
 #searchBar {

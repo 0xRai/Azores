@@ -22,18 +22,44 @@ module.exports.createCommunity = async(req, res, next) => {
     res.redirect(`/c/${community._id}`);
 };
 
+// module.exports.showCommunity = async(req, res) => {
+//     const community = await Community.findById(req.params.id).populate({
+//         path: 'posts',
+//         populate: {
+//             path: 'author',
+//         }
+//     }).populate('creator');
+//     if (!community) {
+//         req.flash('error', 'Community not found!');
+//         return res.redirect('/c')
+//     }
+//     res.render('communities/show', { community, communities });
+
+// }
 module.exports.showCommunity = async(req, res) => {
     const community = await Community.findById(req.params.id).populate({
         path: 'posts',
         populate: {
             path: 'author',
         }
-    }).populate('creator')
+    }).populate('creator');
     if (!community) {
         req.flash('error', 'Community not found!');
         return res.redirect('/c')
     }
-    res.render('communities/show', { community });
+    try {
+        const user = await User.findById(req.user.id).populate({
+            path: 'memberships',
+            model: Community,
+        }).populate('memberships');
+        const communities = user.memberships;
+        res.render('communities/show', { community, communities });
+    } catch {
+        const communities = [];
+        res.render('communities/show', { community, communities });
+    }
+
+
 }
 
 module.exports.renderEditForm = async(req, res) => {

@@ -12,5 +12,4 @@ module.exports.showContent = async(req, res, next) => {
     } catch {
         res.render('index')
     }
-
 }
