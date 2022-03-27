@@ -1,6 +1,7 @@
 const Community = require('../models/community.schema');
 const Post = require('../models/post.schema');
-const User = require('../models/user.schema')
+const User = require('../models/user.schema');
+const Comment = require('../models/comment.schema')
 
 module.exports.index = async(req, res) => {
     const posts = await Post.find({});
@@ -34,7 +35,8 @@ module.exports.showPost = async(req, res) => {
         populate: {
             path: 'author',
         }
-    }).populate('author');
+    }).populate('author').populate('community');
+    console.log(post)
     if (!post) {
         req.flash('error', 'Post not found!');
         return res.redirect(`/c/${post.community}`)

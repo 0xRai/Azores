@@ -1,95 +1,118 @@
 <% layout('layouts/boilerplate') %>
+    <link rel="stylesheet" href="/stylesheets/communities.css">
     <link rel="stylesheet" href="/stylesheets/posts.css">
-    <div class="community-back">
-        <img onclick="location.href='/c/<%= post.community %>'" src="/images/testicon.png" alt="">
-    </div>
-    <div class="post" mb-3>
+    <header class="community">
+        <div class="community-banner">
+            <img onclick="location.href='/c/<%= post.community._id %>'" src="/images/testicon.png" alt="">
+            <div class="community-banner-info">
+                <h1 class="community-name">
+                    <%- post.community.name %>
+                </h1>
+                <p>
+                    <%- post.community.description %>
+                </p>
+            </div>
+        </div>
+    </header>
+    <div class="post">
         <div class="post-row">
-            <div class="post-section">
+            <div class="post-section" id="rating">
+                <button>▲</button>
                 <p>
                     <%- post.rating %>
                 </p>
+                <button>▼</button>
+            </div>
+            <div class="post-section img-fluid">
+                <img src="/images/testicon.png" alt="" class="">
             </div>
             <div class="post-section">
-                <img onclick="href" src="/images/testicon.png" alt="" class="img-fluid">
-            </div>
-            <div class="post-section">
-                <p>
-                    <%- post.title %>
-                </p>
-
-                <p>
-                    Submitted by
-                    <a href="">
-                        <%- post.author.username %>
-                    </a>
-                    on
-                    <%- moment(post.dateCreated).format('lll'); %>
-                </p>
-                <p>
-                    <% if(currentUser && post.author.equals(currentUser._id)) { %>
-                        <form action="../posts/<%= post._id %>?_method=DELETE" method="POST">
-                            <button>Delete</button>
-                        </form>
-                        <form action="../posts/<%= post._id %>/edit">
-                            <button>Edit</button>
-                        </form>
-                        <% } %>
-                </p>
-
-                <hr>
-                <div class="post-section">
-                    <p>
-                        <%- post.body %>
+                <div class="post-col">
+                    <p class="post-title">
+                        <%- post.title %>
                     </p>
-                </div>
-                <hr>
-                <div class="post-section">
-                    <% if(post.comments.length===1) {%>
-                        <p>all
-                            <%- post.comments.length %> comment
-                        </p>
-                        <% } else {%>
-                            <p>all
-                                <%- post.comments.length %> comments
-                            </p>
-                            <% } %>
-                </div>
-                <% if(currentUser) { %>
-                    <form action="<%= post._id %>/comments" method="POST" novalidate>
-                        <div class="post-section">
-                            <textarea name="comment[body]" id="body" cols="70" rows="10"></textarea>
-                        </div>
-                        <div class="post-section">
-                            <button>Submit</button>
-                        </div>
-                    </form>
-                    <% } %>
-                        <!-- COMMENTS -->
-                        <hr>
-                        <div class="post" mb-3>
-                            <div class="post-row">
-                                <div class="post-section">
-                                    <% for (let comment of post.comments) { %>
-                                        <p>
-                                            <a href="">
-                                                <%- comment.author.username %>
-                                            </a> •
-                                            <%- comment.rating %>
-                                                •
-                                                <%- moment(comment.dateCreated).format('lll') %>
-                                        </p>
-                                        <p>
-                                            <%- comment.body %>
-                                        </p>
-                                        <% if(currentUser && comment.author.equals(currentUser._id)) { %>
-                                            <form action="../posts/<%= post._id %>/comments/<%= comment._id%>?_method=DELETE" method="POST">
-                                                <button>delete</button>
-                                            </form>
-                                            <% } %>
-                                                <hr>
-                                                <% } %>
+                    <p class="post-small">
+                        Submitted by
+                        <a href="/user/<%= post.author._id %> ">
+                            <%- post.author.username %>
+                        </a>
+                        •
+                        <%- moment(post.dateCreated).format('lll') %>
+                    </p>
+                    <div class="post-body post-small">
+                        <%- post.body %>
+                    </div>
 
+
+                    <% if(currentUser && post.author.equals(currentUser._id)) { %>
+                        <div class="post-row">
+                            <form action="../posts/<%= post._id %>/edit">
+                                <button class="no-button post-small">Edit</button>
+                            </form>
+                            <form action="../posts/<%= post._id %>?_method=DELETE" method="POST">
+                                <button class="no-button post-small">Delete</button>
+                            </form>
+                        </div>
+                        <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <main class="post-main" id="comments">
+        <div class="post-section">
+            <% if(post.comments.length===1) {%>
+                <p>all
+                    <%- post.comments.length %> comment
+                </p>
+                <% } else {%>
+                    <p>all
+                        <%- post.comments.length %> comments
+                    </p>
+                    <% } %>
+        </div>
+        <% if(currentUser) { %>
+            <form action="../posts/<%= post._id %>/comments" method="POST" novalidate>
+                <div class="post-section">
+                    <textarea name="comment[body]" id="body" cols="70" rows="10"></textarea>
+                </div>
+                <div class="post-section">
+                    <button>Submit</button>
+                </div>
+            </form>
+            <% } %>
+                <!-- COMMENTS -->
+                <hr>
+                <% for (let comment of post.comments) { %>
+                    <div class="post-row">
+                        <div class="post-section" id="rating">
+                            <button>▲</button>
+                            <p>
+                                <%- comment.rating %>
+                            </p>
+                            <button>▼</button>
+                        </div>
+                        <div class="post-section">
+                            <div class="post-col">
+                                <p class="post-small">
+                                    <a href="/user/<%= comment.author._id %> ">
+                                        <%- comment.author.username %>
+                                    </a>
+                                    •
+                                    <%- moment(comment.dateCreated).format('lll') %>
+                                </p>
+                                <div class="post-body post-small">
+                                    <%- comment.body %>
                                 </div>
+                                <% if(currentUser && comment.author.equals(currentUser._id)) { %>
+                                    <div class="post-row">
+                                        <form action="../posts/<%= post._id %>/comments/<%= comment._id%>?_method=DELETE" method="POST">
+                                            <button class="no-button post-small">Delete</button>
+                                        </form>
+                                    </div>
+                                    <% } %>
+                                        <hr>
                             </div>
                         </div>
+                    </div>
+                    <% } %>
+    </main>

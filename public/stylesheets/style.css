@@ -8,6 +8,8 @@
     --blue: #006494;
     --grey: #262626;
     --red: #dc493a;
+    --white: whitesmoke;
+    --lightgrey: rgb(167, 167, 167);
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -15,6 +17,10 @@
 /*  ===========
     Reset
     ===========  */
+
+html {
+    scroll-behavior: smooth;
+}
 
 html,
 body {
@@ -179,6 +185,7 @@ p {
     height: 2rem;
     border-radius: 1rem;
     border: none;
+    padding: 0 1rem;
 }
 
 .btn-primary {
@@ -190,7 +197,19 @@ p {
 
 .btn-primary:hover {
     background-color: var(--lightblue);
-    color: black;
+    color: white;
+}
+
+.btn-danger {
+    background-color: var(--red);
+    transition-property: all;
+    transition-duration: 100ms;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: var(--lightblue);
+    color: white;
 }
 
 #checkbox {
@@ -349,7 +368,7 @@ p {
 }
 
 .navbar a:hover {
-    color: var(--blue);
+    color: var(--lightblue);
 }
 
 .navbar-section {
@@ -390,6 +409,16 @@ p {
     padding: auto;
 }
 
+#community-select {
+    background-color: var(--grey);
+    color: var(--white);
+    height: 1.9rem;
+    border-radius: 1rem;
+    min-width: 10rem;
+    text-align: center;
+    border-style: solid double;
+}
+
 #navbarMid {
     flex-basis: 25rem;
     max-width: 25rem;
@@ -397,7 +426,7 @@ p {
 
 #searchBar {
     border-radius: 1rem;
-    border-style: solid double;
+    border-style: solid;
     border-color: var(--blue);
     background-color: var(--grey);
     height: 1.5rem;
@@ -451,7 +480,7 @@ p {
 #registerBtn:hover,
 #logoutBtn:hover {
     background-color: transparent;
-    color: var(--blue);
+    color: var(--white);
 }
 
 .navbar-text {

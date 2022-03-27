@@ -1,26 +1,43 @@
-.post {
+.img-fluid {
+    min-width: 5rem;
+}
+
+.post-main {
     position: relative;
     display: flex;
-    flex-direction: row;
-    margin: 5rem 3rem;
-    background-color: gray;
-    padding: 1rem 0;
+    flex-direction: column;
+    margin: 1rem;
+    background-color: var(--white);
+    padding: 1rem 1rem;
+    border-radius: .1rem;
+    justify-content: flex-start;
+}
+
+.post-title {
+    color: black;
+}
+
+.post-body {
+    border-color: var(--lightgrey);
+    border-radius: .2rem;
+    outline: solid var(--lightgrey);
+    padding: .5rem;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 95%;
+    line-height: 1.5;
+    color: var(--grey)
 }
 
 .post-row {
-    display: flex;
-    flex-direction: row;
+    align-items: flex-start;
 }
 
-.post-section {
-    margin-left: 1rem;
+.post-section textarea {
+    margin: 1rem 0;
 }
 
-.post-section img {
-    max-width: 3rem;
-}
-
-.post-title,
-.post-section a {
-    color: blue;
+hr {
+    margin: 1rem 0;
 }

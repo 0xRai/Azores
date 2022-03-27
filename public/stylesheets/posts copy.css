@@ -1,0 +1,26 @@
+.post {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    margin: 5rem 3rem;
+    background-color: gray;
+    padding: 1rem 0;
+}
+
+.post-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.post-section {
+    margin-left: 1rem;
+}
+
+.post-section img {
+    max-width: 3rem;
+}
+
+.post-title,
+.post-section a {
+    color: blue;
+}

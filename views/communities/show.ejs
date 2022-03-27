@@ -1,96 +1,136 @@
 <% layout('layouts/boilerplate') %>
     <link rel="stylesheet" href="/stylesheets/communities.css">
-    <div class="sidebar">
-        <div class="sidebar-section">
-            <% if (community.members.length===1) {%>
-                <p>
-                    <%- community.members.length %> member
-                </p>
-                <% } else {%>
-                    <p>
-                        <%- community.members.length %> members
-                    </p>
-                    <% } %>
 
-        </div>
-        <% if(currentUser) { %>
-            <% if(currentUser && community.members.includes(currentUser._id)) { %>
-                <form action="/c/<%= community._id %>/join?_method=PUT" method="POST" novalidate>
-                    <button>Leave Community</button>
-                </form>
-                <% } else { %>
-                    <form action="/c/<%= community._id %>/join" method="POST" novalidate>
-                        <button>Join Community</button>
-                    </form>
-                    <% } %>
-
-                        <form action="/c/<%= community._id %>/posts/new">
-                            <button>Submit New Post</button>
-                        </form>
-                        <hr>
-                        <h2>
-                            Created by
-                            <%- community.creator.username %>
-                        </h2>
-                        <% } %>
-                            <% if(currentUser && community.creator.equals(currentUser._id)) { %>
-                                <div class="sidebar-section">
-
-                                    <hr>
-                                    <h3>Admin Panel</h3>
-
-                                    <form action="/c/<%= community._id %>?_method=DELETE" method="POST">
-                                        <button>Nuke it</button>
-                                    </form>
-                                    <form action="/c/<%= community._id %>/edit">
-                                        <button>Edit</button>
-                                    </form>
-
-                                </div>
-                                <% } %>
-    </div>
     <header class="community">
         <div class="community-banner">
             <img src="/images/testicon.png" alt="">
-            <h1 class="community-name">
-                <%- community.name %>
-            </h1>
-            <p>
-                <%- community.description %>
-            </p>
+            <div class="community-banner-info">
+                <h1 class="community-name">
+                    <%- community.name %>
+                </h1>
+                <p>
+                    <%- community.description %>
+                </p>
+            </div>
         </div>
     </header>
-
-
-    <ul>
-        <% for (let post of community.posts) { %>
-            <div class="post" mb-3>
-                <div class="post-row">
-                    <div class="post-section">
-                        <%- post.rating %>
-                    </div>
-                    <div class="post-section">
-                        <img src="/images/testicon.png" alt="" class="img-fluid">
-                    </div>
-                    <div class="post-section">
-                        <a href="/c/<%= community._id %> /posts/<%= post._id%>" class="post-title">
-                            <%- post.title %>
-                        </a>
+    <main>
+        <div class="sidebar">
+            <div class="sidebar-section">
+                <% if (community.members.length===1) {%>
+                    <p>
+                        <%- community.members.length %> member
+                    </p>
+                    <% } else {%>
                         <p>
-                            Submitted by
-                            <a href="/user/<%= post.author._id %> ">
-                                <%- post.author.username %>
-                            </a>
-                            •
-                            <%- moment(post.dateCreated).startOf('day').fromNow(); %>
+                            <%- community.members.length %> members
                         </p>
-                        <p>
-                            <%- post.comments.length %> comments
-                        </p>
+                        <% } %>
+
+            </div>
+            <% if(currentUser) { %>
+                <% if(currentUser && community.members.includes(currentUser._id)) { %>
+                    <form action="/c/<%= community._id %>/join?_method=PUT" method="POST" novalidate>
+                        <button class="form-button btn-primary">Leave Community</button>
+                    </form>
+                    <% } else { %>
+                        <form action="/c/<%= community._id %>/join" method="POST" novalidate>
+                            <button class="form-button btn-primary">Join Community</button>
+                        </form>
+                        <% } %>
+
+                            <form action="/c/<%= community._id %>/posts/new">
+                                <button class="form-button btn-primary">Submit New Post</button>
+                            </form>
+                            <h2>
+                                Created by
+                                <%- community.creator.username %>
+                            </h2>
+                            <hr>
+                            <% } %>
+                                <% if(currentUser && community.creator.equals(currentUser._id)) { %>
+                                    <div class="sidebar-section">
+                                        <h3>Admin Panel</h3>
+
+                                        <form action="/c/<%= community._id %>?_method=DELETE" method="POST">
+                                            <button class="form-button btn-danger">Nuke it</button>
+                                        </form>
+                                        <form action="/c/<%= community._id %>/edit">
+                                            <button class="form-button btn-primary">Edit</button>
+                                        </form>
+
+                                    </div>
+                                    <% } %>
+        </div>
+        <ul>
+            <% for (let post of community.posts) { %>
+                <div class="post">
+                    <div class="post-row">
+                        <div class="post-section" id="rating">
+                            <button>▲</button>
+                            <p>
+                                <%- post.rating %>
+                            </p>
+                            <button>▼</button>
+                        </div>
+                        <div class="post-section img-fluid">
+                            <img src="/images/testicon.png" alt="" class="">
+                        </div>
+                        <div class="post-section">
+                            <div class="post-col">
+                                <a href="/c/<%= community._id %> /posts/<%= post._id%>" class="post-title">
+                                    <%- post.title %>
+                                </a>
+                                <p class="post-small">
+                                    Submitted by
+                                    <a href="/user/<%= post.author._id %> ">
+                                        <%- post.author.username %>
+                                    </a>
+                                    •
+                                    <%- moment(post.dateCreated).format('lll') %>
+                                </p>
+                                <% if(post.comments.length===1) {%>
+                                    <div class="post-row">
+                                        <p class="post-small">
+                                            <a href="/c/<%= community._id %> /posts/<%= post._id%>/#comments">
+                                                <%- post.comments.length %> comment
+                                            </a>
+                                        </p>
+                                        <% if(currentUser && post.author.equals(currentUser._id)) { %>
+
+                                            <form action="../posts/<%= post._id %>/edit">
+                                                <button class="no-button post-small">Edit</button>
+                                            </form>
+                                            <form action="../posts/<%= post._id %>?_method=DELETE" method="POST">
+                                                <button class="no-button post-small">Delete</button>
+                                            </form>
+                                            <% } %>
+                                    </div>
+                                    <% } else { %>
+                                        <div class="post-row">
+                                            <p class="post-small">
+                                                <a href="/c/<%= community._id %> /posts/<%= post._id%>/#comments">
+                                                    <%- post.comments.length %> comments
+                                                </a>
+                                            </p>
+
+                                            <% if(currentUser && post.author.equals(currentUser._id)) { %>
+
+                                                <form action="../posts/<%= post._id %>/edit">
+                                                    <button class="no-button post-small">Edit</button>
+                                                </form>
+                                                <form action="../posts/<%= post._id %>?_method=DELETE" method="POST">
+                                                    <button class="no-button post-small">Delete</button>
+                                                </form>
+                                                <% } %>
+                                        </div>
+                                        <% } %>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <% } %>
-    </ul>
+                <% } %>
+        </ul>
+    </main>
     <script>
     </script>
