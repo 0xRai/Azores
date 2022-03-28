@@ -349,7 +349,7 @@ p {
 .navbar {
     position: relative;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
     padding: .5rem 2rem;
@@ -466,7 +466,7 @@ p {
 #logoutBtn {
     cursor: pointer;
     background-color: var(--blue);
-    border-style: solid double;
+    border-style: solid;
     border-color: var(--blue);
     border-radius: 1rem;
     width: 5rem;
