@@ -113,7 +113,7 @@ p {
 .form-control {
     height: 2rem;
     border-radius: 1rem;
-    border-style: solid double;
+    border-style: solid;
     border-color: var(--blue);
     background-color: var(--grey);
     transition-property: all;
@@ -123,7 +123,7 @@ p {
 }
 
 .form-control:focus {
-    border-style: solid double;
+    border-style: solid;
     background-color: whitesmoke;
     outline: none;
     color: black;
@@ -416,7 +416,7 @@ p {
     border-radius: 1rem;
     min-width: 10rem;
     text-align: center;
-    border-style: solid double;
+    border-style: solid;
 }
 
 #navbarMid {
@@ -451,7 +451,7 @@ p {
 }
 
 #searchBar:focus {
-    border-style: solid double;
+    border-style: solid;
     background-color: whitesmoke;
     outline: none;
     color: black;

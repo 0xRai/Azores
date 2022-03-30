@@ -33,7 +33,7 @@ body {
 .community-banner-info {
     color: var(--white);
     margin: 0 3rem;
-    filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.253));
+    filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.25));
 }
 
 .community-name {
