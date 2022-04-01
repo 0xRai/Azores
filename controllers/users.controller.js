@@ -1,7 +1,10 @@
 const User = require('../models/user.schema');
+const Post = require('../models/post.schema');
+const Community = require('../models/community.schema');
+const Comment = require('../models/comment.schema');
 
 module.exports.renderRegister = (req, res) => {
-    res.render('user/register');
+    res.render('user/register', { title: 'Register | Azores' });
 }
 
 module.exports.register = async(req, res, next) => {
@@ -23,7 +26,7 @@ module.exports.register = async(req, res, next) => {
 }
 
 module.exports.renderLogin = (req, res) => {
-    res.render('user/login');
+    res.render('user/login', { title: 'Login | Azores' });
 }
 
 module.exports.login = async(req, res) => {
@@ -44,6 +47,47 @@ module.exports.logout = (req, res) => {
 }
 
 module.exports.showUser = async(req, res) => {
-    const user = await User.findById(req.params.id);
-    res.render('user/show', { user })
+    const user = await User.findById(req.params.id).populate({
+        path: 'posts',
+        model: Post,
+        populate: {
+            path: 'community',
+            model: Community,
+        },
+    }).populate({
+        path: 'comments',
+        model: Comment,
+        populate: {
+            path: 'post',
+            model: Post,
+            populate: {
+                path: 'community',
+                model: Community,
+            },
+        },
+    })
+    res.render('user/show', { user, title: `${user.username}'s Profile | Azores` })
+}
+
+module.exports.showUserTop = async(req, res) => {
+    const user = await User.findById(req.params.id).populate({
+        path: 'posts',
+        model: Post,
+        populate: {
+            path: 'community',
+            model: Community,
+        },
+    }).populate({
+        path: 'comments',
+        model: Comment,
+        populate: {
+            path: 'post',
+            model: Post,
+            populate: {
+                path: 'community',
+                model: Community,
+            },
+        },
+    })
+    res.render('user/showTop', { user, title: `${user.username}'s Profile | Azores` })
 }

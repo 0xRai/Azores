@@ -23,6 +23,9 @@ router.get('/logout', users.logout)
 router.route('/:id')
     .get(catchAsync(users.showUser))
 
+router.route('/:id/top')
+    .get(catchAsync(users.showUserTop))
+
 
 
 module.exports = router;
