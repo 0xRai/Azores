@@ -41,3 +41,20 @@
 hr {
     margin: 1rem 0;
 }
+
+.post-row:target {
+    outline: .2rem solid var(--lightblue);
+    background-color: rgba(255, 255, 0, 0.25);
+    border-radius: .5rem;
+    animation-name: highlight;
+    animation-duration: 1s;
+}
+
+@keyframes highlight {
+    from {
+        outline-width: .5rem;
+    }
+    to {
+        outline-width: .2rem;
+    }
+}
