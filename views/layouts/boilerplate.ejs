@@ -9,7 +9,11 @@
     <link rel="stylesheet" href="/stylesheets/reset.css">
     <link rel="stylesheet" href="/stylesheets/style.css">
     <title>
-        Azores
+        <% try { %>
+            <%- title %> |
+                <% } catch { %>
+                    <% } %>
+                        Azores
     </title>
 </head>
 

@@ -1,14 +1,15 @@
 const e = require('connect-flash');
 const Community = require('../models/community.schema');
-const User = require('../models/user.schema')
+const User = require('../models/user.schema');
+const Post = require('../models/post.schema')
 const mongoose = require('mongoose')
 module.exports.index = async(req, res) => {
     const communities = await Community.find({});
-    res.render('communities/index', { communities })
+    res.render('communities/index', { communities, title: 'All Communites' })
 };
 
 module.exports.renderNewForm = (req, res) => {
-    res.render('communities/new');
+    res.render('communities/new', { title: 'Create a New Community' });
 };
 
 module.exports.createCommunity = async(req, res, next) => {
@@ -21,24 +22,10 @@ module.exports.createCommunity = async(req, res, next) => {
     req.flash('success', 'Sucessfully made a new community!');
     res.redirect(`/c/${community._id}`);
 };
-
-// module.exports.showCommunity = async(req, res) => {
-//     const community = await Community.findById(req.params.id).populate({
-//         path: 'posts',
-//         populate: {
-//             path: 'author',
-//         }
-//     }).populate('creator');
-//     if (!community) {
-//         req.flash('error', 'Community not found!');
-//         return res.redirect('/c')
-//     }
-//     res.render('communities/show', { community, communities });
-
-// }
 module.exports.showCommunity = async(req, res) => {
     const community = await Community.findById(req.params.id).populate({
         path: 'posts',
+        model: Post,
         populate: {
             path: 'author',
         }
@@ -53,10 +40,10 @@ module.exports.showCommunity = async(req, res) => {
             model: Community,
         }).populate('memberships');
         const communities = user.memberships;
-        res.render('communities/show', { community, communities });
+        res.render('communities/show', { community, communities, title: `${community.name}: ${community.description}` })
     } catch {
         const communities = [];
-        res.render('communities/show', { community, communities });
+        res.render('communities/show', { community, communities, title: `${community.name}: ${community.description}` })
     }
 
 
@@ -69,7 +56,7 @@ module.exports.renderEditForm = async(req, res) => {
         req.flash('error', 'Community not found!');
         return res.redirect('/c')
     }
-    res.render('communities/edit', { community });
+    res.render('communities/edit', { community, title: `Edit c/${community.name}` });
 }
 
 module.exports.updateCommunity = async(req, res) => {

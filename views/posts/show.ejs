@@ -83,7 +83,7 @@
                 <!-- COMMENTS -->
                 <hr>
                 <% for (let comment of post.comments) { %>
-                    <div class="post-row">
+                    <div class="post-row" id="<%= comment._id %>">
                         <div class="post-section" id="rating">
                             <button>▲</button>
                             <p>

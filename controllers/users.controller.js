@@ -4,7 +4,7 @@ const Community = require('../models/community.schema');
 const Comment = require('../models/comment.schema');
 
 module.exports.renderRegister = (req, res) => {
-    res.render('user/register', { title: 'Register | Azores' });
+    res.render('user/register', { title: 'Register' });
 }
 
 module.exports.register = async(req, res, next) => {
@@ -26,7 +26,7 @@ module.exports.register = async(req, res, next) => {
 }
 
 module.exports.renderLogin = (req, res) => {
-    res.render('user/login', { title: 'Login | Azores' });
+    res.render('user/login', { title: 'Login' });
 }
 
 module.exports.login = async(req, res) => {
@@ -66,7 +66,7 @@ module.exports.showUser = async(req, res) => {
             },
         },
     })
-    res.render('user/show', { user, title: `${user.username}'s Profile | Azores` })
+    res.render('user/show', { user, title: `${user.username}'s Profile` })
 }
 
 module.exports.showUserTop = async(req, res) => {
@@ -89,5 +89,5 @@ module.exports.showUserTop = async(req, res) => {
             },
         },
     })
-    res.render('user/showTop', { user, title: `${user.username}'s Profile | Azores` })
+    res.render('user/showTop', { user, title: `${user.username}'s Profile` })
 }

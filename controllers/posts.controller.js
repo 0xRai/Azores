@@ -10,7 +10,8 @@ module.exports.index = async(req, res) => {
 
 module.exports.renderNewForm = async(req, res) => {
     const community = await Community.findById(req.params.id);
-    res.render('posts/new'), { community };
+    console.log(community)
+    res.render('posts/new', { community, title: `New Post for ${community.name}` });
 };
 
 module.exports.createPost = async(req, res, next) => {
@@ -36,12 +37,11 @@ module.exports.showPost = async(req, res) => {
             path: 'author',
         }
     }).populate('author').populate('community');
-    console.log(`THIS IS POST: ${post}`)
     if (!post) {
         req.flash('error', 'Post not found!');
         return res.redirect(`/c/${post.community}`)
     }
-    res.render('posts/show', { post });
+    res.render('posts/show', { post, title: `${post.title}: ${post.community.name}` });
 }
 
 module.exports.renderEditForm = async(req, res) => {
@@ -51,7 +51,7 @@ module.exports.renderEditForm = async(req, res) => {
         req.flash('error', 'Post not found!');
         return res.redirect('/posts')
     }
-    res.render('posts/edit', { post });
+    res.render('posts/edit', { post, title: `Edit ${post.title}` });
 }
 
 module.exports.updatePost = async(req, res) => {
