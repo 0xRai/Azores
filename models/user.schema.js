@@ -13,6 +13,10 @@ const UserSchema = new Schema({
         required: true,
         unique: true,
     },
+    dateCreated: {
+        type: Date,
+        default: Date.now,
+    },
     memberships: [{
         type: Schema.Types.ObjectId,
         ref: 'Community',

@@ -1,6 +1,12 @@
 <% layout('layouts/boilerplate') %>
+    <script>
+        const title = document.head.title
+        console.log(title);
+    </script>
     <link rel="stylesheet" href="/stylesheets/user.css">
-
+    <title>
+        <%- user.username %> | Azores
+    </title>
     <header class="user">
         <div class="user-banner">
             <h2 class="user-banner-logo">
@@ -16,10 +22,10 @@
             </div>
         </div>
         <div class="user-sort">
-            <div class="user-sort-tab tab-active">
-                <a href="/user/<%= user._id %>">New</a>
-            </div>
             <div class="user-sort-tab">
+                <a href="/user/<%= user._id%>">New</a>
+            </div>
+            <div class="user-sort-tab tab-active">
                 <a href="/user/<%= user._id%>/top">Top</a>
             </div>
         </div>
@@ -51,15 +57,13 @@
             <div class="post">
                 <div class="post-row">
                     <div class="post-section">
-                        <h2>New Posts from
+                        <h2>Top Posts from
                             <%- user.username %>
                         </h2>
                     </div>
                 </div>
             </div>
-            <% user.posts.sort((a,b)=> new moment(b.dateCreated).format('YYYYMMDDHHmmss')- new
-                moment(a.dateCreated
-                ).format('YYYYMMDDHHmmss')) %>
+            <% user.posts.sort((a,b)=> b.rating - a.rating) %>
                 <% for (let post of user.posts) { %>
                     <div class="post">
                         <div class="post-row">
@@ -104,15 +108,13 @@
                         <div class="post">
                             <div class="post-row">
                                 <div class="post-section">
-                                    <h2>New Comments from
+                                    <h2>Top Comments from
                                         <%- user.username %>
                                     </h2>
                                 </div>
                             </div>
                         </div>
-                        <% user.comments.sort((a,b)=> new moment(b.dateCreated).format('YYYYMMDDHHmmss')- new
-                            moment(a.dateCreated
-                            ).format('YYYYMMDDHHmmss')) %>
+                        <% user.comments.sort((a,b)=> b.rating - a.rating) %>
                             <% for (let comment of user.comments) { %>
                                 <div class="post">
                                     <div class="post-row">
