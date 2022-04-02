@@ -11,23 +11,22 @@ module.exports.showContent = async(req, res, next) => {
                 path: 'posts',
                 model: Post,
                 populate: {
+                    path: 'author',
+                    model: User,
+                },
+                populate: {
                     path: 'community',
                     model: Community,
                 },
-                populate: {
-                    path: 'author',
-                    model: User,
-                }
             },
         });
         const communities = user.memberships;
-        let posts = [];
+        let posts = []
         for (let community of communities) {
             posts.push(community.posts)
         }
         let postsMerged = posts.flat();
-        console.log(postsMerged)
-        res.render('index', { user, communities })
+        res.render('index', { user, postsMerged })
     } catch {
         res.render('index')
     }
