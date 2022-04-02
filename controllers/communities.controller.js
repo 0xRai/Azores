@@ -45,8 +45,55 @@ module.exports.showCommunity = async(req, res) => {
         const communities = [];
         res.render('communities/show', { community, communities, title: `${community.name}: ${community.description}` })
     }
+}
+module.exports.showCommunityTop = async(req, res) => {
+    const community = await Community.findById(req.params.id).populate({
+        path: 'posts',
+        model: Post,
+        populate: {
+            path: 'author',
+        }
+    }).populate('creator');
+    if (!community) {
+        req.flash('error', 'Community not found!');
+        return res.redirect('/c')
+    }
+    try {
+        const user = await User.findById(req.user.id).populate({
+            path: 'memberships',
+            model: Community,
+        }).populate('memberships');
+        const communities = user.memberships;
+        res.render('communities/showTop', { community, communities, title: `${community.name}: ${community.description}` })
+    } catch {
+        const communities = [];
+        res.render('communities/showTop', { community, communities, title: `${community.name}: ${community.description}` })
+    }
+}
 
-
+module.exports.showCommunityHot = async(req, res) => {
+    const community = await Community.findById(req.params.id).populate({
+        path: 'posts',
+        model: Post,
+        populate: {
+            path: 'author',
+        }
+    }).populate('creator');
+    if (!community) {
+        req.flash('error', 'Community not found!');
+        return res.redirect('/c')
+    }
+    try {
+        const user = await User.findById(req.user.id).populate({
+            path: 'memberships',
+            model: Community,
+        }).populate('memberships');
+        const communities = user.memberships;
+        res.render('communities/showHot', { community, communities, title: `${community.name}: ${community.description}` })
+    } catch {
+        const communities = [];
+        res.render('communities/showHot', { community, communities, title: `${community.name}: ${community.description}` })
+    }
 }
 
 module.exports.renderEditForm = async(req, res) => {

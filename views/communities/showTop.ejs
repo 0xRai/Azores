@@ -14,21 +14,21 @@
             </div>
         </div>
         <div class="community-sort">
-            <div class="community-sort-tab tab-active">
+            <div class="community-sort-tab">
                 <a href="/c/<%= community._id %>">New</a>
             </div>
-            <div class="community-sort-tab">
+            <div class="community-sort-tab tab-active">
                 <a href="/c/<%= community._id%>/top">Top</a>
             </div>
             <div class="community-sort-tab">
-                <a href="/c/<%= community._id%>/hot">Hot</a>
+                <a href="/c/<%= community._id %>/hot">Hot</a>
             </div>
         </div>
     </header>
     <main>
         <%- include('../partials/communities/sidebar') %>
             <ul>
-                <% community.posts.sort((a,b)=> new moment(b.dateCreated).format('YYYYMMDDHHmmss')- new moment(a.dateCreated).format('YYYYMMDDHHmmss')) %>
+                <% community.posts.sort((a,b)=> b.rating - a.rating) %>
                     <% if (community.posts.length===0 ) {%>
                         <h3 class="no-posts">No posts :(</h3>
                         <% } %>

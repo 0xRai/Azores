@@ -3,20 +3,26 @@ const router = express.Router();
 const Community = require('../models/community.schema');
 const catchAsync = require('../utils/catchAsync');
 const communities = require('../controllers/communities.controller');
-const { isLoggedIn, validateCommunity, isCreator } = require('../middleware');
+const { isLoggedIn, validateCommunity, isCreator, grabUserMemberships } = require('../middleware');
 
 router.route('/')
-    .get(catchAsync(communities.index))
+    .get(grabUserMemberships, catchAsync(communities.index))
     .post(isLoggedIn, validateCommunity, catchAsync(communities.createCommunity))
 
 router.get('/new', isLoggedIn, communities.renderNewForm)
 
 router.route('/:id')
-    .get(catchAsync(communities.showCommunity))
+    .get(grabUserMemberships, catchAsync(communities.showCommunity))
     .put(isLoggedIn, validateCommunity, catchAsync(communities.updateCommunity))
     .delete(isLoggedIn, isCreator, catchAsync(communities.deleteCommunity))
 
-router.get('/:id/edit', isLoggedIn, isCreator, catchAsync(communities.renderEditForm));
+router.route('/:id/top')
+    .get(grabUserMemberships, catchAsync(communities.showCommunityTop))
+
+router.route('/:id/hot')
+    .get(grabUserMemberships, catchAsync(communities.showCommunityHot))
+
+router.get('/:id/edit', isLoggedIn, isCreator, grabUserMemberships, catchAsync(communities.renderEditForm));
 
 router.route('/:id/join')
     .post(isLoggedIn, catchAsync(communities.joinCommunity))

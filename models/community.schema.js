@@ -26,6 +26,10 @@ const CommunitySchema = new Schema({
         type: Date,
         default: Date.now,
     },
+    lastPost: {
+        type: Date,
+        default: Date.now,
+    },
     members: [{
         type: Schema.Types.ObjectId,
         ref: 'User',

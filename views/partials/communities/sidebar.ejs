@@ -1,0 +1,48 @@
+<div class="sidebar">
+    <div class="sidebar-section">
+        <% if (community.members.length===1) {%>
+            <p>
+                <%- community.members.length %> member
+            </p>
+            <% } else {%>
+                <p>
+                    <%- community.members.length %> members
+                </p>
+                <% } %>
+
+    </div>
+    <form action="/c/<%= community._id %>/posts/new">
+        <button class="form-button btn-primary">Submit New Post</button>
+    </form>
+    <% if(currentUser) { %>
+        <% if(currentUser && community.members.includes(currentUser._id)) { %>
+            <form action="/c/<%= community._id %>/join?_method=PUT" method="POST" novalidate>
+                <button class="form-button btn-primary">Leave Community</button>
+            </form>
+            <% } else { %>
+                <form action="/c/<%= community._id %>/join" method="POST" novalidate>
+                    <button class="form-button btn-primary">Join Community</button>
+                </form>
+                <% } %>
+
+
+                    <h2>
+                        Created by
+                        <%- community.creator.username %>
+                    </h2>
+                    <hr>
+                    <% } %>
+                        <% if(currentUser && community.creator.equals(currentUser._id)) { %>
+                            <div class="sidebar-section">
+                                <h3>Admin Panel</h3>
+
+                                <form action="/c/<%= community._id %>?_method=DELETE" method="POST">
+                                    <button class="form-button btn-danger">Nuke it</button>
+                                </form>
+                                <form action="/c/<%= community._id %>/edit">
+                                    <button class="form-button btn-primary">Edit</button>
+                                </form>
+
+                            </div>
+                            <% } %>
+</div>

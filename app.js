@@ -18,6 +18,7 @@ const LocalStrategy = require('passport-local');
 const User = require('./models/user.schema');
 const helmet = require('helmet');
 const moment = require('moment');
+const { grabUserMemberships } = require('./middleware');
 
 const mongoSanitize = require('express-mongo-sanitize');
 
