@@ -281,19 +281,30 @@ p {
     cursor: pointer;
 }
 
+.no-posts {
+    display: flex;
+    color: var(--white);
+    align-items: center;
+    justify-content: center;
+    margin: 2rem;
+    font-weight: 500;
+    font-size: 3rem;
+}
+
 
 /*  ===========
     Alerts
     ===========  */
 
 .flash-alert {
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 1rem;
     margin-bottom: -4rem;
     color: rgba(0, 0, 0, 0.63);
+    z-index: 3;
+    width: 100vw;
 }
 
 .flash-alert-message p {
@@ -361,6 +372,7 @@ p {
     overflow: hidden;
     max-width: 100vw;
     z-index: 3;
+    box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.205);
 }
 
 .navbar a {
