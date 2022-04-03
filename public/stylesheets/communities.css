@@ -41,6 +41,34 @@ body {
     font-size: 3rem;
 }
 
+.community-sort {
+    display: flex;
+    flex-direction: row;
+    align-self: flex-start;
+    margin-left: 1rem;
+    color: var(--grey);
+    background-color: var(--white);
+    border-radius: 0 0 .2rem .2rem;
+}
+
+.community-sort-tab {
+    padding: .2rem .5rem .2rem;
+}
+
+.community-sort-tab a {
+    text-decoration: none;
+    color: var(--blue);
+}
+
+.tab-active {
+    background-color: var(--lightblue);
+    border-radius: 0 0 .2rem .2rem;
+}
+
+.tab-active a {
+    color: var(--white);
+}
+
 #rating {
     display: flex;
     align-items: center;
@@ -171,4 +199,14 @@ hr {
 
 .no-button:hover {
     cursor: pointer;
+}
+
+.no-posts {
+    display: flex;
+    color: var(--white);
+    align-items: center;
+    justify-content: center;
+    margin: 2rem;
+    font-weight: 500;
+    font-size: 3rem;
 }

@@ -22,6 +22,7 @@ module.exports.createPost = async(req, res, next) => {
     post.community = req.params.id;
     user.posts.push(post);
     community.posts.push(post);
+    community.lastPost = Date.now();
     await post.save();
     await user.save();
     await community.save();

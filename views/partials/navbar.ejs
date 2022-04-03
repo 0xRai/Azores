@@ -3,12 +3,10 @@
         <a class="navbar-section" id="navbarLeft" href="/">
             <img class="navbar-brand" src="/images/azores.svg" alt="">
             <p class="navbar-brand" id="navBrand">Azores</p>
-
         </a>
         <div class="navbar-section">
             <% if(!currentUser) { %>
                 <% } else { %>
-
                     <select name="communities" id="community-select" onchange="location = this.value">
                         <option value=""></option>
                         <% try { %>
@@ -17,6 +15,8 @@
                                     <%- community.name %>
                                         <% } %>
                                             <% } catch { %>
+                                                <option value="">
+                                                    Join a community!
                                                 <% } %>
 
                     </select>

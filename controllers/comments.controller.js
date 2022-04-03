@@ -10,6 +10,7 @@ module.exports.createComment = async(req, res) => {
     comment.post = req.params.id;
     user.comments.push(comment);
     post.comments.push(comment);
+    post.dateModified = Date.now();
     await user.save();
     await comment.save();
     await post.save();

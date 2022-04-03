@@ -12,8 +12,6 @@
                     <%- user.username %>
                 </h1>
             </div>
-            <div class="user-banner-corner">
-            </div>
         </div>
         <div class="user-sort">
             <div class="user-sort-tab tab-active">
@@ -80,7 +78,8 @@
                                     </div>
 
                                     <p class="post-small">
-                                        <%- moment(post.dateCreated).format('lll') %> to <a href="/c/<%= post.community._id %>" class="community-redirect">
+                                        <%- moment(post.dateCreated).format('lll') %> to <a
+                                                href="/c/<%= post.community._id %>" class="community-redirect">
                                                 c/<%- post.community.name %>
                                             </a>
                                     </p>
@@ -124,7 +123,8 @@
                                         <div class="post-section">
                                             <div class="post-col">
                                                 <div class="post-col">
-                                                    <a href="/c/<%= comment.post.community._id %>/posts/<%= comment.post._id %>/#<%= comment._id %>" class="community-redirect comment-header">
+                                                    <a href="/c/<%= comment.post.community._id %>/posts/<%= comment.post._id %>/#<%= comment._id %>"
+                                                        class="community-redirect comment-header">
                                                         <% if (comment.post.title.length>= 50) {%>
                                                             <%- comment.post.title.substring(0,49) %>...
                                                                 <% } else { %>

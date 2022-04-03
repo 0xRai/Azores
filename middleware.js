@@ -82,3 +82,15 @@ module.exports.validateJoin = (req, res, next) => {
     }
     next();
 }
+
+module.exports.grabUserMemberships = async(req, res, next) => {
+    try {
+        const user = await User.findById(req.user.id).populate({
+            path: 'memberships',
+            model: Community,
+        });
+        const communities = user.memberships;
+        res.locals.communities = communities;
+    } catch {}
+    next();
+}
