@@ -8,7 +8,7 @@
    version="1.1"
    id="svg854"
    sodipodi:docname="exit.svg"
-   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   inkscape:version="1.1.2 (b8e25be8, 2022-02-05)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -25,12 +25,12 @@
      inkscape:pagecheckerboard="0"
      showgrid="false"
      inkscape:zoom="29.916667"
-     inkscape:cx="12"
-     inkscape:cy="12"
-     inkscape:window-width="1920"
-     inkscape:window-height="1011"
+     inkscape:cx="6.1337047"
+     inkscape:cy="11.29805"
+     inkscape:window-width="1512"
+     inkscape:window-height="916"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="38"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg854" />
   <path
@@ -38,5 +38,5 @@
      stroke-linejoin="round"
      d="M6 18L18 6M6 6l12 12"
      id="path852"
-     style="fill:#000000;fill-opacity:0.52955055" />
+     style="fill:#f5f5f5;fill-opacity:0.52941179;stroke:#f5f5f5;stroke-opacity:1" />
 </svg>

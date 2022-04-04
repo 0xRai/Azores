@@ -301,10 +301,8 @@ p {
     justify-content: center;
     align-items: center;
     padding: 1rem;
-    margin-bottom: -4rem;
-    color: rgba(0, 0, 0, 0.63);
+    color: var(--white);
     z-index: 3;
-    width: 100vw;
 }
 
 .flash-alert-message p {
@@ -325,7 +323,7 @@ p {
 }
 
 .alert-warning {
-    background-color: rgba(253, 0, 0, 0.205);
+    background-color: rgba(253, 0, 0, 0.4);
 }
 
 .alert-warning::before {
@@ -340,7 +338,7 @@ p {
 }
 
 .alert-success {
-    background-color: rgba(0, 253, 0, 0.205);
+    background-color: rgba(0, 253, 0, 0.4);
 }
 
 .alert-success::before {
