@@ -1,88 +1,70 @@
 <% layout('layouts/boilerplate') %>
     <link rel="stylesheet" href="/stylesheets/communities.css">
-
-    <header class="community">
-        <div class="community-banner">
-            <img src="/images/testicon.png" alt="">
-            <div class="community-banner-info">
-                <h1 class="community-name">
-                    <%- community.name %>
-                </h1>
-                <p>
-                    <%- community.description %>
-                </p>
+    <%- include('../partials/modals/newPost') %>
+        <header class="community">
+            <div class="community-banner">
+                <img src="/images/testicon.png" alt="">
+                <div class="community-banner-info">
+                    <h1 class="community-name">
+                        <%- community.name %>
+                    </h1>
+                    <p>
+                        <%- community.description %>
+                    </p>
+                </div>
             </div>
-        </div>
-        <div class="community-sort">
-            <div class="community-sort-tab tab-active">
-                <a href="/c/<%= community._id %>">New</a>
+            <div class="community-sort">
+                <div class="community-sort-tab tab-active">
+                    <a href="/c/<%= community._id %>">New</a>
+                </div>
+                <div class="community-sort-tab">
+                    <a href="/c/<%= community._id%>/top">Top</a>
+                </div>
+                <div class="community-sort-tab">
+                    <a href="/c/<%= community._id%>/hot">Hot</a>
+                </div>
             </div>
-            <div class="community-sort-tab">
-                <a href="/c/<%= community._id%>/top">Top</a>
-            </div>
-            <div class="community-sort-tab">
-                <a href="/c/<%= community._id%>/hot">Hot</a>
-            </div>
-        </div>
-    </header>
-    <main>
-        <%- include('../partials/communities/sidebar') %>
-            <ul>
-                <% community.posts.sort((a,b)=> new moment(b.dateCreated).format('YYYYMMDDHHmmss')- new moment(a.dateCreated).format('YYYYMMDDHHmmss')) %>
-                    <% if (community.posts.length===0 ) {%>
-                        <h3 class="no-posts">No posts :(</h3>
-                        <% } %>
-                            <% for (let post of community.posts) { %>
-                                <div class="post">
-                                    <div class="post-row">
-                                        <div class="post-section" id="rating">
-                                            <button>▲</button>
-                                            <p>
-                                                <%- post.rating %>
-                                            </p>
-                                            <button>▼</button>
-                                        </div>
-                                        <div class="post-section img-fluid">
-                                            <img src="/images/testicon.png" alt="" class="">
-                                        </div>
-                                        <div class="post-section">
-                                            <div class="post-col">
-                                                <a href="/c/<%= community._id %> /posts/<%= post._id%>" class="post-title">
-                                                    <%- post.title %>
-                                                </a>
-                                                <p class="post-small">
-                                                    Submitted by
-                                                    <a href="/user/<%= post.author._id %> ">
-                                                        <%- post.author.username %>
-                                                    </a>
-                                                    •
-                                                    <%- moment(post.dateCreated).format('lll') %>
+        </header>
+        <main>
+            <%- include('../partials/communities/sidebar') %>
+                <ul>
+                    <% community.posts.sort((a,b)=> new moment(b.dateCreated).format('YYYYMMDDHHmmss')- new moment(a.dateCreated).format('YYYYMMDDHHmmss')) %>
+                        <% if (community.posts.length===0 ) {%>
+                            <h3 class="no-posts">No posts :(</h3>
+                            <% } %>
+                                <% for (let post of community.posts) { %>
+                                    <div class="post">
+                                        <div class="post-row">
+                                            <div class="post-section" id="rating">
+                                                <button>▲</button>
+                                                <p>
+                                                    <%- post.rating %>
                                                 </p>
-                                                <% if(post.comments.length===1) {%>
-                                                    <div class="post-row">
-                                                        <p class="post-small">
-                                                            <a href="/c/<%= community._id %> /posts/<%= post._id%>/#comments">
-                                                                <%- post.comments.length %> comment
-                                                            </a>
-                                                        </p>
-                                                        <% if(currentUser && post.author.equals(currentUser._id)) { %>
-
-                                                            <form action="../posts/<%= post._id %>/edit">
-                                                                <button class="no-button post-small">Edit</button>
-                                                            </form>
-                                                            <form action="../posts/<%= post._id %>?_method=DELETE" method="POST">
-                                                                <button class="no-button post-small">Delete</button>
-                                                            </form>
-                                                            <% } %>
-                                                    </div>
-                                                    <% } else { %>
+                                                <button>▼</button>
+                                            </div>
+                                            <div class="post-section img-fluid">
+                                                <img src="/images/testicon.png" alt="" class="">
+                                            </div>
+                                            <div class="post-section">
+                                                <div class="post-col">
+                                                    <a href="/c/<%= community._id %> /posts/<%= post._id%>" class="post-title">
+                                                        <%- post.title %>
+                                                    </a>
+                                                    <p class="post-small">
+                                                        Submitted by
+                                                        <a href="/user/<%= post.author._id %> ">
+                                                            <%- post.author.username %>
+                                                        </a>
+                                                        •
+                                                        <%- moment(post.dateCreated).format('lll') %>
+                                                    </p>
+                                                    <% if(post.comments.length===1) {%>
                                                         <div class="post-row">
                                                             <p class="post-small">
-                                                                <a href="/c/<%= community._id %>/posts/<%= post._id%>/#comments">
-                                                                    <%- post.comments.length %> comments
+                                                                <a href="/c/<%= community._id %> /posts/<%= post._id%>/#comments">
+                                                                    <%- post.comments.length %> comment
                                                                 </a>
                                                             </p>
-
                                                             <% if(currentUser && post.author.equals(currentUser._id)) { %>
 
                                                                 <form action="../posts/<%= post._id %>/edit">
@@ -93,13 +75,31 @@
                                                                 </form>
                                                                 <% } %>
                                                         </div>
-                                                        <% } %>
+                                                        <% } else { %>
+                                                            <div class="post-row">
+                                                                <p class="post-small">
+                                                                    <a href="/c/<%= community._id %>/posts/<%= post._id%>/#comments">
+                                                                        <%- post.comments.length %> comments
+                                                                    </a>
+                                                                </p>
+
+                                                                <% if(currentUser && post.author.equals(currentUser._id)) { %>
+
+                                                                    <form action="../posts/<%= post._id %>/edit">
+                                                                        <button class="no-button post-small">Edit</button>
+                                                                    </form>
+                                                                    <form action="../posts/<%= post._id %>?_method=DELETE" method="POST">
+                                                                        <button class="no-button post-small">Delete</button>
+                                                                    </form>
+                                                                    <% } %>
+                                                            </div>
+                                                            <% } %>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <% } %>
-            </ul>
-    </main>
-    <script>
-    </script>
+                                    <% } %>
+                </ul>
+        </main>
+        <script>
+        </script>

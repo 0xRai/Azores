@@ -19,24 +19,28 @@
 
 <body>
     <%- include('../partials/navbar') %>
-        <% if ( error !='' ) { %>
-            <div class="flash-alert alert-warning" id="alert">
-                <p class="flash-alert-message">
-                    <%= error %>
-                </p>
-            </div>
-            <% } %>
-                <% if ( success !='' ) { %>
-                    <div class="flash-alert alert-success" id="alert">
-                        <p class="flash-alert-message">
-                            <%= success %>
-                        </p>
-                    </div>
-                    <% } %>
-                        <%- body %>
+        <% if (!currentUser) {%>
+            <%- include('../partials/modals/auth.ejs') %>
+                <% } %>
+                    <% if ( error !='' ) { %>
+                        <div class="flash-alert alert-warning" id="alert">
+                            <p class="flash-alert-message">
+                                <%= error %>
+                            </p>
+                        </div>
+                        <% } %>
+                            <% if ( success !='' ) { %>
+                                <div class="flash-alert alert-success" id="alert">
+                                    <p class="flash-alert-message">
+                                        <%= success %>
+                                    </p>
+                                </div>
+                                <% } %>
+                                    <%- body %>
 
 </body>
 <script src="/javascripts/alerts.js"></script>
 <script src="/javascripts/searchBar.js"></script>
+<script src="/javascripts/modal.js"></script>
 
 </html>

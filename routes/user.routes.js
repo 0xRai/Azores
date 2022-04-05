@@ -11,16 +11,6 @@ router.route('/')
         res.redirect('/');
     })
 
-router.route('/register')
-    .get(grabUserMemberships, users.renderRegister)
-    .post(catchAsync(users.register))
-
-router.route('/login')
-    .get(grabUserMemberships, users.renderLogin)
-    .post(passport.authenticate('local', { failureFlash: true, failureRedirect: '/user/login' }), users.login)
-
-router.get('/logout', users.logout)
-
 router.route('/:id')
     .get(grabUserMemberships, catchAsync(users.showUser))
 

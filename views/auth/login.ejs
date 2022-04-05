@@ -5,14 +5,12 @@
             <img class="form-logo" src="/images/azores.svg" alt="">
             <h1>Login</h1>
         </div>
-        <form action="/user/login" method="POST" class="form-validated" novalidate>
+        <form action="/auth/login" method="POST" class="form-validated" novalidate>
             <div class="form-input">
-                <input class="form-control username" type="text" name="username" id="username" autofocus required
-                    placeholder="Username">
+                <input class="form-control username" type="text" name="username" id="username" autofocus required placeholder="Username">
             </div>
             <div class="form-input">
-                <input class="form-control password" type="password" name="password" id="password"
-                    placeholder="Password" required>
+                <input class="form-control password" type="password" name="password" id="password" placeholder="Password" required>
             </div>
             <div class="form-input" id="checkbox">
                 <input type="checkbox" class="form-control" name="rememberMe" id="rememberMe">

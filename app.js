@@ -27,6 +27,7 @@ const usersRouter = require('./routes/user.routes');
 const communityRouter = require('./routes/community.routes');
 const postRouter = require('./routes/post.routes');
 const commentRouter = require('./routes/comment.routes')
+const authRouter = require('./routes/auth.routes')
 
 const app = express();
 
@@ -94,7 +95,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
-    if (!['/user/login', '/'].includes(req.originalUrl)) {
+    if (!['/auth/login', '/'].includes(req.originalUrl)) {
         req.session.returnTo = req.originalUrl;
     };
     res.locals.currentUser = req.user;
@@ -104,6 +105,7 @@ app.use((req, res, next) => {
 })
 app.locals.moment = require('moment');
 app.use('/', indexRouter);
+app.use('/auth', authRouter)
 app.use('/user', usersRouter);
 app.use('/c', communityRouter);
 app.use('/c/:id/posts', postRouter);
