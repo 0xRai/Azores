@@ -12,7 +12,7 @@ router.route('/')
 router.route('/:username')
     .get(grabUserMemberships, catchAsync(users.showUser))
 
-router.route('/:id/top')
+router.route('/:username/top')
     .get(grabUserMemberships, catchAsync(users.showUserTop))
 
 

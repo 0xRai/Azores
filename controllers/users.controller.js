@@ -28,7 +28,8 @@ module.exports.showUser = async(req, res) => {
 }
 
 module.exports.showUserTop = async(req, res) => {
-    const user = await User.findById(req.params.id).populate({
+    const userUnflat = await User.find({ username: req.params.username });
+    const user = await User.findById(userUnflat[0]).populate({
         path: 'posts',
         model: Post,
         populate: {
