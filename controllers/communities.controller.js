@@ -124,13 +124,13 @@ module.exports.deleteCommunity = async(req, res) => {
 module.exports.joinCommunity = async(req, res) => {
     const community = await Community.findById(req.params.id);
     const user = await User.findById(req.user._id);
-    community.members = req.user._id;
     const { id } = community.members;
     if ({ id } && community.members.includes({ id })) {
         req.flash('error', `You already joined ${community.name}`);
         res.redirect(`/c/${community._id}`);
     } else {
         await User.findByIdAndUpdate(user, { $push: { memberships: community._id } })
+        await community.members.push(req.user._id);
         await community.save();
     }
     req.flash('success', `Sucessfully joined ${community.name}!`);
