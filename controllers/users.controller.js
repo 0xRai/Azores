@@ -4,7 +4,8 @@ const Community = require('../models/community.schema');
 const Comment = require('../models/comment.schema');
 
 module.exports.showUser = async(req, res) => {
-    const userUnflat = await User.find({ username: req.params.username }).populate({
+    const userUnflat = await User.find({ username: req.params.username });
+    const user = await User.findById(userUnflat[0]).populate({
         path: 'posts',
         model: Post,
         populate: {
@@ -23,7 +24,6 @@ module.exports.showUser = async(req, res) => {
             },
         },
     });
-    const user = userUnflat.assign();
     res.render('user/show', { user, title: `${user.username}'s Profile` });
 }
 
