@@ -11,7 +11,10 @@ router.route('/')
     })
     .post(isLoggedIn, validatePost, catchAsync(posts.createPost))
 
-router.get('/new', isLoggedIn, grabUserMemberships, posts.renderNewForm)
+router.route('/new')
+    .get(isLoggedIn, grabUserMemberships, posts.renderNewForm)
+    .post(isLoggedIn, validatePost, catchAsync(posts.createPost))
+
 
 router.route('/:id')
     .get(grabUserMemberships, catchAsync(posts.showPost))

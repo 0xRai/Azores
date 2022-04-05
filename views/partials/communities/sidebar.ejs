@@ -11,9 +11,7 @@
                 <% } %>
 
     </div>
-    <form action="/c/<%= community._id %>/posts/new">
-        <button class="form-button btn-primary">Submit New Post</button>
-    </form>
+    <button class="form-button btn-primary" id="newPostBtn">Submit New Post</button>
     <% if(currentUser) { %>
         <% if(currentUser && community.members.includes(currentUser._id)) { %>
             <form action="/c/<%= community._id %>/join?_method=PUT" method="POST" novalidate>

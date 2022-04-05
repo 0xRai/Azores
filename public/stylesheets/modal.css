@@ -1,3 +1,20 @@
 .form {
-    width: 120%;
+    width: 140%;
+    outline: .15rem solid var(--blue);
+    border-radius: .5rem;
+}
+
+.close-new-post {
+    align-self: flex-end;
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-new-post:hover,
+.close-new-post:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }

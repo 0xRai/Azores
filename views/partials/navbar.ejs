@@ -27,11 +27,9 @@
             <button id="searchBarBtn" onclick="location.href='/c/'"></button>
         </div>
         <div class="navbar-section" id="navbarRight">
-            <button id="myBtn">Open Modal</button>
             <% if (!currentUser) {%>
-                <a href="/auth/login" class="navbar-link">Login</a>
-                <button onclick="location.href='/auth/register'" type="button" class="navbar-link" id="registerBtn">Sign
-                    Up</button>
+                <a id="loginBtn" class="navbar-link">Login</a>
+                <button type="button" class="navbar-link" id="registerBtn">Sign Up</button>
                 <% } else { %>
                     <p class="navbar-text">Welcome,
                         <a href="/auth/<%= currentUser._id%>" class="navbar-text bold">

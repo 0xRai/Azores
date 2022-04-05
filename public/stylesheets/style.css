@@ -102,6 +102,7 @@ p {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 .form-label {
@@ -267,8 +268,8 @@ p {
 /* Modal Content/Box */
 
 .modal-content {
-    margin: 25% auto;
-    max-width: 25rem;
+    margin: 99% auto;
+    max-width: 30rem;
 }
 
 
