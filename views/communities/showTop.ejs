@@ -52,7 +52,7 @@
                                                 </a>
                                                 <p class="post-small">
                                                     Submitted by
-                                                    <a href="/user/<%= post.author._id %> ">
+                                                    <a href="/user/<%= post.author.username %>">
                                                         <%- post.author.username %>
                                                     </a>
                                                     •
@@ -67,10 +67,10 @@
                                                         </p>
                                                         <% if(currentUser && post.author.equals(currentUser._id)) { %>
 
-                                                            <form action="../posts/<%= post.title %>/edit">
+                                                            <form action="../posts/<%= post.URLid%>/<%= post.titleURL %>/edit">
                                                                 <button class="no-button post-small">Edit</button>
                                                             </form>
-                                                            <form action="../posts/<%= post.title %>?_method=DELETE" method="POST">
+                                                            <form action="../posts/<%= post.URLid%>/<%= post.titleURL %>?_method=DELETE" method="POST">
                                                                 <button class="no-button post-small">Delete</button>
                                                             </form>
                                                             <% } %>
@@ -85,10 +85,10 @@
 
                                                             <% if(currentUser && post.author.equals(currentUser._id)) { %>
 
-                                                                <form action="../posts/<%= post.title %>/edit">
+                                                                <form action="../posts/<%= post.URLid%>/<%= post.titleURL %>/edit">
                                                                     <button class="no-button post-small">Edit</button>
                                                                 </form>
-                                                                <form action="../posts/<%= post.title %>?_method=DELETE" method="POST">
+                                                                <form action="../posts/<%= post.URLid%>/<%= post.titleURL %>?_method=DELETE" method="POST">
                                                                     <button class="no-button post-small">Delete</button>
                                                                 </form>
                                                                 <% } %>

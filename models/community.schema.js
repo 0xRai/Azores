@@ -8,6 +8,7 @@ const CommunitySchema = new Schema({
         type: String,
         unique: true,
         trim: true,
+        required: true,
     },
     creator: {
         type: Schema.Types.ObjectId,
@@ -21,6 +22,7 @@ const CommunitySchema = new Schema({
         type: String,
         default: "Just a generic description!",
         trim: true,
+        required: true,
     },
     dateCreated: {
         type: Date,

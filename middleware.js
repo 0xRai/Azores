@@ -55,8 +55,8 @@ module.exports.isCreator = async(req, res, next) => {
 }
 
 module.exports.isPostAuthor = async(req, res, next) => {
-    const { id, postId } = req.params;
-    const post = await Post.findById(id);
+    const { communityName, titleURL, URLid } = req.params;
+    const post = await Post.findOne({ titleURL: titleURL, URLid: URLid });
     if (!post.author.equals(req.user._id)) {
         req.flash('error', 'You do not have permission to perform that action.');
         return res.redirect(`/c/${id}/posts/${postId}`);
