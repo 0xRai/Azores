@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="/stylesheets/posts.css">
     <header class="community">
         <div class="community-banner">
-            <img onclick="location.href='/c/<%= post.community._id %>'" src="/images/testicon.png" alt="">
+            <img onclick="location.href='/c/<%= post.community.name%>'" src="/images/testicon.png" alt="">
             <div class="community-banner-info">
                 <h1 class="community-name">
                     <%- post.community.name %>
@@ -33,7 +33,7 @@
                     </p>
                     <p class="post-small">
                         Submitted by
-                        <a href="/user/<%= post.author._id %> ">
+                        <a href="/user/<%= post.author.username %> ">
                             <%- post.author.username %>
                         </a>
                         •
@@ -46,10 +46,10 @@
 
                     <% if(currentUser && post.author.equals(currentUser._id)) { %>
                         <div class="post-row">
-                            <form action="/c/<%= post.community._id %>/posts/<%= post._id %>/edit">
+                            <form action="/c/<%= post.community.name %>/posts/<%= post.title %>/edit">
                                 <button class="no-button post-small">Edit</button>
                             </form>
-                            <form action="/c/<%= post.community._id %>/posts/<%= post._id %>?_method=DELETE" method="POST">
+                            <form action="/c/<%= post.community.name %>/posts/<%= post.title %>?_method=DELETE" method="POST">
                                 <button class="no-button post-small">Delete</button>
                             </form>
                         </div>

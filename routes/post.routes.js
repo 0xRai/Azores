@@ -16,11 +16,11 @@ router.route('/new')
     .post(isLoggedIn, validatePost, catchAsync(posts.createPost))
 
 
-router.route('/:id')
+router.route('/:title')
     .get(grabUserMemberships, catchAsync(posts.showPost))
     .put(isLoggedIn, validatePost, catchAsync(posts.updatePost))
     .delete(isLoggedIn, isPostAuthor, catchAsync(posts.deletePost))
 
-router.get('/:id/edit', isLoggedIn, isPostAuthor, grabUserMemberships, catchAsync(posts.renderEditForm))
+router.get('/:title/edit', isLoggedIn, isPostAuthor, grabUserMemberships, catchAsync(posts.renderEditForm))
 
 module.exports = router;

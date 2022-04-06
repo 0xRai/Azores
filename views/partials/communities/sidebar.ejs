@@ -14,11 +14,11 @@
     <button class="form-button btn-primary" id="newPostBtn">Submit New Post</button>
     <% if(currentUser) { %>
         <% if(currentUser && community.members.includes(currentUser._id)) { %>
-            <form action="/c/<%= community._id %>/join?_method=PUT" method="POST" novalidate>
+            <form action="/c/<%= community.name %>/join?_method=PUT" method="POST" novalidate>
                 <button class="form-button btn-primary">Leave Community</button>
             </form>
             <% } else { %>
-                <form action="/c/<%= community._id %>/join" method="POST" novalidate>
+                <form action="/c/<%= community.name %>/join" method="POST" novalidate>
                     <button class="form-button btn-primary">Join Community</button>
                 </form>
                 <% } %>
@@ -34,10 +34,10 @@
                             <div class="sidebar-section">
                                 <h3>Admin Panel</h3>
 
-                                <form action="/c/<%= community._id %>?_method=DELETE" method="POST">
+                                <form action="/c/<%= community.name %>?_method=DELETE" method="POST">
                                     <button class="form-button btn-danger">Nuke it</button>
                                 </form>
-                                <form action="/c/<%= community._id %>/edit">
+                                <form action="/c/<%= community.name %>/edit">
                                     <button class="form-button btn-primary">Edit</button>
                                 </form>
 

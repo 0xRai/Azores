@@ -6,12 +6,12 @@
                 <%- community.name %>
             </h1>
         </div>
-        <form action="/c/<%= community._id %>?_method=PUT" method="POST" class="form-validated">
+        <form action="/c/<%= community.name%>?_method=PUT" method="POST" class="form-validated">
             <div class="form-input">
                 <input class="form-control important" type="text" name="community[name]" id="name" autofocus required placeholder="Community Name" value="<%- community.name %> ">
                 <input class="form-control important" type="text" name="community[description]" id="description" placeholder="Community Description" value="<%- community.description %> ">
             </div>
             <button class="form-button btn-primary">Edit Community</button>
         </form>
-        <a href="/c/<%= community._id%>">Back to Community</a>
+        <a href="/c/<%= community.name%>">Back to Community</a>
     </div>

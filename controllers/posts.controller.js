@@ -15,11 +15,12 @@ module.exports.renderNewForm = async(req, res) => {
 };
 
 module.exports.createPost = async(req, res, next) => {
-    const community = await Community.findById(req.params.id);
+    const community = await Community.findOne({ name: req.params.id });
     const user = await User.findById(req.user._id);
     const post = new Post(req.body.post);
+    console.log(`ObjectId(${community.id})`)
     post.author = req.user._id;
-    post.community = req.params.id;
+    post.community = community.id;
     user.posts.push(post);
     community.posts.push(post);
     community.lastPost = Date.now();
@@ -27,12 +28,12 @@ module.exports.createPost = async(req, res, next) => {
     await user.save();
     await community.save();
     req.flash('success', 'Sucessfully made a new post!');
-    res.redirect(`/c/${community._id}/posts/${post._id}`);
+    res.redirect(`/c/${community.name}/posts/${post.title}`);
 };
 
 module.exports.showPost = async(req, res) => {
-
-    const post = await Post.findById(req.params.id).populate({
+    const community = await Community.findOne({ name: req.params.id })
+    const post = await Post.findOne({ id: req.params.title, community: community.id }).populate({
         path: 'comments',
         populate: {
             path: 'author',

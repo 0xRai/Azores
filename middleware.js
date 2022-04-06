@@ -45,8 +45,8 @@ module.exports.validateComment = (req, res, next) => {
 }
 
 module.exports.isCreator = async(req, res, next) => {
-    const { id } = req.params;
-    const community = await Community.findById(id);
+    const communityName = req.params.name;
+    const community = await Community.findOne({ name: communityName });
     if (!community.creator.equals(req.user._id)) {
         req.flash('error', 'You do not have permission to perform that action.');
         return res.redirect(`/c/${id}`);

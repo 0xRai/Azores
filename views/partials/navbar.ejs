@@ -11,7 +11,7 @@
                         <option value=""></option>
                         <% try { %>
                             <% for (let community of communities) { %>
-                                <option value="/c/<%=community._id %>">
+                                <option value="/c/<%=community.name %>">
                                     <%- community.name %>
                                         <% } %>
                                             <% } catch { %>

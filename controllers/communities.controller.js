@@ -1,8 +1,7 @@
 const e = require('connect-flash');
 const Community = require('../models/community.schema');
 const User = require('../models/user.schema');
-const Post = require('../models/post.schema')
-const mongoose = require('mongoose')
+const Post = require('../models/post.schema');
 module.exports.index = async(req, res) => {
     const communities = await Community.find({});
     res.render('communities/index', { communities, title: 'All Communites' })
@@ -20,10 +19,11 @@ module.exports.createCommunity = async(req, res, next) => {
     await User.findByIdAndUpdate(user, { $push: { memberships: community._id } })
     await community.save();
     req.flash('success', 'Sucessfully made a new community!');
-    res.redirect(`/c/${community._id}`);
+    res.redirect(`/c/${community.name}`);
 };
+
 module.exports.showCommunity = async(req, res) => {
-    const community = await Community.findById(req.params.id).populate({
+    const community = await Community.findOne({ name: req.params.name }).populate({
         path: 'posts',
         model: Post,
         populate: {
@@ -47,7 +47,7 @@ module.exports.showCommunity = async(req, res) => {
     }
 }
 module.exports.showCommunityTop = async(req, res) => {
-    const community = await Community.findById(req.params.id).populate({
+    const community = await Community.findOne({ name: req.params.name }).populate({
         path: 'posts',
         model: Post,
         populate: {
@@ -72,7 +72,7 @@ module.exports.showCommunityTop = async(req, res) => {
 }
 
 module.exports.showCommunityHot = async(req, res) => {
-    const community = await Community.findById(req.params.id).populate({
+    const community = await Community.findOne({ name: req.params.name }).populate({
         path: 'posts',
         model: Post,
         populate: {
@@ -97,8 +97,8 @@ module.exports.showCommunityHot = async(req, res) => {
 }
 
 module.exports.renderEditForm = async(req, res) => {
-    const { id } = req.params;
-    const community = await Community.findById(id);
+    const communityName = req.params.name;
+    const community = await Community.findOne({ name: communityName });
     if (!community) {
         req.flash('error', 'Community not found!');
         return res.redirect('/c')
@@ -107,43 +107,43 @@ module.exports.renderEditForm = async(req, res) => {
 }
 
 module.exports.updateCommunity = async(req, res) => {
-    const { id } = req.params;
-    const community = await Community.findByIdAndUpdate(id, {...req.body.community });
+    const communityName = req.params.name;
+    const community = await Community.findOneAndUpdate({ name: communityName }, {...req.body.community });
     await community.save();
     req.flash('success', 'Sucessfully updated community!');
-    res.redirect(`/c/${community._id}`);
+    res.redirect(`/c/${community.name}`);
 }
 
 module.exports.deleteCommunity = async(req, res) => {
-    const { id } = req.params;
-    await Community.findByIdAndDelete(id);
+    const communityName = req.params.name;
+    await Community.findOneAndDelete(communityName);
     req.flash('success', 'Sucessfully deleted community!');
     res.redirect('/c');
 }
 
 module.exports.joinCommunity = async(req, res) => {
-    const community = await Community.findById(req.params.id);
+    const community = await Community.findOne({ name: req.params.name });
     const user = await User.findById(req.user._id);
     const { id } = community.members;
     if ({ id } && community.members.includes({ id })) {
         req.flash('error', `You already joined ${community.name}`);
-        res.redirect(`/c/${community._id}`);
+        res.redirect(`/c/${community.name}`);
     } else {
         await User.findByIdAndUpdate(user, { $push: { memberships: community._id } })
         await community.members.push(req.user._id);
         await community.save();
     }
     req.flash('success', `Sucessfully joined ${community.name}!`);
-    res.redirect(`/c/${community._id}`);
+    res.redirect(`/c/${community.name}`);
 }
 
 module.exports.leaveCommunity = async(req, res) => {
-    const community = await Community.findById(req.params.id);
+    const community = await Community.findOne({ name: req.params.name });
     const user = await User.findById(req.user._id);
     const { id } = user;
     await Community.findByIdAndUpdate(community, { $pull: { members: id } })
     await User.findByIdAndUpdate(user, { $pull: { memberships: community._id } })
     await community.save();
     req.flash('success', `Sucessfully left ${community.name}!`);
-    res.redirect(`/c/${community._id}`);
+    res.redirect(`/c/${community.name}`);
 }
