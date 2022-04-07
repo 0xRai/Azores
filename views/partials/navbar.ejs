@@ -11,7 +11,7 @@
                         <option value=""></option>
                         <% try { %>
                             <% for (let community of communities) { %>
-                                <option value="/c/<%=community._id %>">
+                                <option value="/c/<%=community.name %>">
                                     <%- community.name %>
                                         <% } %>
                                             <% } catch { %>
@@ -32,7 +32,7 @@
                 <button type="button" class="navbar-link" id="registerBtn">Sign Up</button>
                 <% } else { %>
                     <p class="navbar-text">Welcome,
-                        <a href="/auth/<%= currentUser._id%>" class="navbar-text bold">
+                        <a href="/user/<%= currentUser.username%>" class="navbar-text bold">
                             <%- currentUser.username %>
                         </a>
                     </p>

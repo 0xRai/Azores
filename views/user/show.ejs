@@ -1,6 +1,5 @@
 <% layout('layouts/boilerplate') %>
     <link rel="stylesheet" href="/stylesheets/user.css">
-
     <header class="user">
         <div class="user-banner">
             <h2 class="user-banner-logo">
@@ -15,10 +14,10 @@
         </div>
         <div class="user-sort">
             <div class="user-sort-tab tab-active">
-                <a href="/user/<%= user._id %>">New</a>
+                <a href="/user/<%= user.username %>">New</a>
             </div>
             <div class="user-sort-tab">
-                <a href="/user/<%= user._id%>/top">Top</a>
+                <a href="/user/<%= user.username%>/top">Top</a>
             </div>
         </div>
     </header>
@@ -72,20 +71,19 @@
                             <div class="post-section">
                                 <div class="post-col">
                                     <div class="post-col">
-                                        <a href="/c/<%= post.community._id%>/posts/<%= post._id%>" class="post-title">
+                                        <a href="/c/<%= post.community.name%>/posts/<%= post.URLid%>/<%= post.titleURL %> " class="post-title">
                                             <%- post.title %>
                                         </a>
                                     </div>
 
                                     <p class="post-small">
-                                        <%- moment(post.dateCreated).format('lll') %> to <a
-                                                href="/c/<%= post.community._id %>" class="community-redirect">
+                                        <%- moment(post.dateCreated).format('lll') %> to <a href="/c/<%= post.community.name %>" class="community-redirect">
                                                 c/<%- post.community.name %>
                                             </a>
                                     </p>
                                     <div class="post-row">
                                         <p class="post-small">
-                                            <a href="/c/<%= post.community._id%>/posts/<%= post._id%>/#comments">
+                                            <a href="/c/<%= post.community.name%>/posts/<%= post.URLid%>/<%= post.titleURL %>/#comments">
                                                 <% if(post.comments.length===1) {%>
                                                     <%- post.comments.length %> comment
                                                         <% } else { %>
@@ -123,8 +121,7 @@
                                         <div class="post-section">
                                             <div class="post-col">
                                                 <div class="post-col">
-                                                    <a href="/c/<%= comment.post.community._id %>/posts/<%= comment.post._id %>/#<%= comment._id %>"
-                                                        class="community-redirect comment-header">
+                                                    <a href="/c/<%= comment.post.community.name %>/posts/<%= comment.post.URLid %>/<%= comment.post.titleURL %> /#<%= comment._id %>" class="community-redirect comment-header">
                                                         <% if (comment.post.title.length>= 50) {%>
                                                             <%- comment.post.title.substring(0,49) %>...
                                                                 <% } else { %>
@@ -138,7 +135,7 @@
 
                                                 <p class="post-small">
                                                     <%- moment(comment.dateCreated).format('lll') %> in
-                                                        <a href="/c/<%= comment.post.community._id %>/">
+                                                        <a href="/c/<%= comment.post.community.name %>/">
                                                             c/<%- comment.post.community.name %>
                                                         </a>
 

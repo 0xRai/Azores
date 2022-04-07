@@ -1,10 +1,10 @@
 <% layout('layouts/boilerplate') %>
     <div class="form">
         <div class="form-title">
-            <img class="form-logo" src="../images/azores.svg" alt="">
+            <img class="form-logo" src="/images/azores.svg" alt="">
             <h1>Edit your post</h1>
         </div>
-        <form action="../../posts/<%= post._id%>?_method=PUT" method="POST" class="form-validated">
+        <form action="/c/<%= communityName %>/posts/<%= post.URLid %>/<%= post.titleURL %>?_method=PUT" method="POST" class="form-validated">
             <div class="form-input">
                 <input class="form-control important" type="text" name="post[title]" id="title" autofocus required placeholder="Title" value="<%= post.title %> ">
             </div>

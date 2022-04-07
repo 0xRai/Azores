@@ -17,19 +17,19 @@
                         <div class="post-section">
                             <div class="post-col">
                                 <div class="post-col">
-                                    <a href="/c/<%= post.community._id%>/posts/<%= post._id%>" class="post-title">
+                                    <a href="/c/<%= post.community.name%>/posts/<%= post.title%>" class="post-title">
                                         <%- post.title %>
                                     </a>
                                 </div>
 
                                 <p class="post-small">
-                                    <%- moment(post.dateCreated).format('lll') %> to <a href="/c/<%= post.community._id %>" class="community-redirect">
+                                    <%- moment(post.dateCreated).format('lll') %> to <a href="/c/<%= post.community.name %>" class="community-redirect">
                                             c/<%- post.community.name %>
                                         </a>
                                 </p>
                                 <div class="post-row">
                                     <p class="post-small">
-                                        <a href="/c/<%= post.community._id%>/posts/<%= post._id%>/#comments">
+                                        <a href="/c/<%= post.community.name%>/posts/<%= post.title%>/#comments">
                                             <% if(post.comments.length===1) {%>
                                                 <%- post.comments.length %> comment
                                                     <% } else { %>

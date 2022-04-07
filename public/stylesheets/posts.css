@@ -1,3 +1,7 @@
+.community-banner img {
+    cursor: pointer;
+}
+
 .img-fluid {
     min-width: 5rem;
 }

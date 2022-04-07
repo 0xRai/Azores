@@ -4,7 +4,7 @@ const Community = require('../models/community.schema');
 const Comment = require('../models/comment.schema');
 
 module.exports.showUser = async(req, res) => {
-    const user = await User.findById(req.params.id).populate({
+    const user = await User.findOne({ username: req.params.username }).populate({
         path: 'posts',
         model: Post,
         populate: {
@@ -22,12 +22,13 @@ module.exports.showUser = async(req, res) => {
                 model: Community,
             },
         },
-    })
-    res.render('user/show', { user, title: `${user.username}'s Profile` })
+    });
+    res.render('user/show', { user, title: `${user.username}'s Profile` });
 }
 
 module.exports.showUserTop = async(req, res) => {
-    const user = await User.findById(req.params.id).populate({
+    const userUnflat = await User.find({ username: req.params.username });
+    const user = await User.findById(userUnflat[0]).populate({
         path: 'posts',
         model: Post,
         populate: {

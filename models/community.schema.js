@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const Post = require('./post.schema')
-const User = require('./user.schema')
-
-const opts = { toJSON: { virtuals: true } };
+const Post = require('./post.schema');
+const User = require('./user.schema');
 
 const CommunitySchema = new Schema({
     name: {
         type: String,
-        unique: true
+        unique: true,
+        trim: true,
+        required: true,
     },
     creator: {
         type: Schema.Types.ObjectId,
@@ -20,7 +20,9 @@ const CommunitySchema = new Schema({
     }],
     description: {
         type: String,
-        default: "Just a generic description!"
+        default: "Just a generic description!",
+        trim: true,
+        required: true,
     },
     dateCreated: {
         type: Date,
@@ -34,7 +36,7 @@ const CommunitySchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User',
     }],
-}, opts);
+});
 
 CommunitySchema.post('findOneAndDelete', async function(doc) {
     if (doc) {
