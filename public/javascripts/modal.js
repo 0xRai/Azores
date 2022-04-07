@@ -31,7 +31,6 @@ try {
             registerModal.style.display = "none";
         } catch {}
         newPostModal.style.display = "flex";
-        console.log(newPostSpan)
     }
 } catch {};
 

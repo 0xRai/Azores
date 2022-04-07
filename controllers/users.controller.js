@@ -23,7 +23,6 @@ module.exports.showUser = async(req, res) => {
             },
         },
     });
-    console.log(user)
     res.render('user/show', { user, title: `${user.username}'s Profile` });
 }
 
