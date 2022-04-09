@@ -18,7 +18,8 @@ const LocalStrategy = require('passport-local');
 const User = require('./models/user.schema');
 const helmet = require('helmet');
 const moment = require('moment');
-const { grabUserMemberships } = require('./middleware');
+const cors = require('cors');
+
 
 const mongoSanitize = require('express-mongo-sanitize');
 
@@ -26,8 +27,9 @@ const indexRouter = require('./routes/index.routes');
 const usersRouter = require('./routes/user.routes');
 const communityRouter = require('./routes/community.routes');
 const postRouter = require('./routes/post.routes');
-const commentRouter = require('./routes/comment.routes')
-const authRouter = require('./routes/auth.routes')
+const commentRouter = require('./routes/comment.routes');
+const authRouter = require('./routes/auth.routes');
+const apiRouter = require('./routes/api.routes')
 
 const app = express();
 
@@ -86,6 +88,7 @@ const sessionConfig = {
 
 app.use(session(sessionConfig));
 app.use(flash());
+app.use(cors());
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -105,7 +108,8 @@ app.use((req, res, next) => {
 })
 app.locals.moment = require('moment');
 app.use('/', indexRouter);
-app.use('/auth', authRouter)
+app.use('/auth', authRouter);
+app.use('/api', apiRouter);
 app.use('/user', usersRouter);
 app.use('/c', communityRouter);
 app.use('/c/:name/posts', postRouter);
