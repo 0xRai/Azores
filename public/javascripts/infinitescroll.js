@@ -5,24 +5,23 @@
 
     const postsEl = document.querySelector('.posts');
     const loaderEl = document.querySelector('.loader');
-
-    // get the posts from API
+    const activeTabEl = document.querySelector('.tab-active').innerText;
+    const titleSlice = document.title.slice(0, document.title.trim().indexOf(':'));
+    // Get the API Post
     const getposts = async(skip, limit) => {
-        const API_URL = `http://localhost:3000/api/c/TestCommunity?sort=-1&skip=${skip}&limit=${limit}`;
-        const response = await fetch(API_URL);
-        // handle 404
-        if (!response.ok) {
-            throw new Error(`An error occurred: ${response.status}`);
+            const API_URL = `http://localhost:3000/api/c/${titleSlice}?&sortBy=${activeTabEl}&skip=${skip}&limit=${limit}`;
+            const response = await fetch(API_URL);
+            // handle 404
+            if (!response.ok) {
+                throw new Error(`An error occurred: ${response.status}`);
+            }
+            return await response.json();
         }
-        return await response.json();
-    }
-
-    // show the posts
+        // show the posts
     const showPosts = (posts) => {
         posts.forEach(post => {
             const postEl = document.createElement('div');
             postEl.classList.add('post');
-
             postEl.innerHTML = `
                                         <div class="post-row">
                                             <div class="post-section" id="rating">
@@ -46,44 +45,15 @@
                                                             ${post.author.username}
                                                         </a>
                                                         •
-                                                        ${post.dateCreated}
+                                                        ${post.dateCreatedFormat}
                                                     </p>
-                                                    <% if(post.comments.length===1) {%>
                                                         <div class="post-row">
                                                             <p class="post-small">
                                                                 <a href="/c/${post.community.name}/posts/${post.URLid}/${post.titleURL}/#comments">
-                                                                    ${post.comments.length} comment
+                                                                    ${post.comments.length} comments
                                                                 </a>
                                                             </p>
-                                                            <% if(currentUser && post.author.equals(currentUser._id)) { %>
-
-                                                                <form action="/c/${post.community.name}/posts/${post.URLid}/${post.titleURL}/edit">
-                                                                    <button class="no-button post-small">Edit</button>
-                                                                </form>
-                                                                <form action="/c/${post.community.name}/posts/${post.URLid}/${post.titleURL}?_method=DELETE" method="POST">
-                                                                    <button class="no-button post-small">Delete</button>
-                                                                </form>
-                                                                <% }}
                                                         </div>
-                                                        <% } else {}
-                                                            <div class="post-row">
-                                                                <p class="post-small">
-                                                                    <a href="/c/${post.community.name}/posts/${post.URLid}/${post.titleURL}/#comments">
-                                                                        ${post.comments.length} comments
-                                                                    </a>
-                                                                </p>
-
-                                                                <% if(currentUser && post.author.equals(currentUser._id)) { %>
-
-                                                                    <form action="/c/${post.community.name}/posts/${post.URLid}/${post.titleURL}/edit">
-                                                                        <button class="no-button post-small">Edit</button>
-                                                                    </form>
-                                                                    <form action="/c/${post.community.name}/posts/${post.URLid}/${post.titleURL}?_method=DELETE" method="POST">
-                                                                        <button class="no-button post-small">Delete</button>
-                                                                    </form>
-                                                                    <% } %>
-                                                            </div>
-                                                            <% } %>
                                                 </div>
                                             </div>
                                         </div>
@@ -108,14 +78,11 @@
         return total === 0 || startIndex < total;
 
     };
-
     // load posts
     const loadPosts = async(skip, limit) => {
-
         // show the loader
         showLoader();
-
-        // 0.5 second later
+        // 0.5 seconds later
         setTimeout(async() => {
             try {
                 // if having more posts to fetch
@@ -135,7 +102,6 @@
         }, 500);
 
     };
-
     // control variables
     let currentSkip = 0;
     const limit = 50;
@@ -157,7 +123,6 @@
     }, {
         passive: true
     });
-
     // initialize
     loadPosts(currentSkip, limit);
 })();

@@ -13,6 +13,9 @@ router.route('/c/')
 router.route('/c/:name')
     .get(api.showCommunityAPI)
 
+// router.route('/c/:name/hot')
+//     .get(api.showCommunityHotAPI)
+
 router.route('/test')
     .get(api.test)
 
