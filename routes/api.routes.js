@@ -1,22 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const catchAsync = require('../utils/catchAsync')
-const api = require('../controllers/api.controller')
-const cors = require('../cors');
+const catchAsync = require('../utils/catchAsync');
+const api = require('../controllers/api.controller');
 
 router.route('/')
     .get()
 
-router.route('/c/')
+router.route('/c')
     .get(api.showAPI)
 
 router.route('/c/:name')
-    .get(api.showCommunityAPI)
+    .get(catchAsync(api.showCommunityAPI))
 
-// router.route('/c/:name/hot')
-//     .get(api.showCommunityHotAPI)
+router.route('/u')
 
-router.route('/test')
-    .get(api.test)
+router.route('/u/:username')
+    .get(catchAsync(api.showUserAPI))
 
 module.exports = router;

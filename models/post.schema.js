@@ -39,10 +39,6 @@ const PostSchema = new Schema({
         type: Date,
         default: Date.now,
     },
-
-    dateCreatedFormat: {
-        type: String
-    },
     dateModified: {
         type: Date,
         default: Date.now,

@@ -36,7 +36,7 @@
                                             </div>
                                             <div class="post-section">
                                                 <div class="post-col">
-                                                    <a href="/c/${post.community.name}/posts/${post.URLid}/${post.titleURL}" class="post-title">
+                                                    <a href="/c/${post.community}/posts/${post.URLid}/${post.titleURL}" class="post-title">
                                                         ${post.title}
                                                     </a>
                                                     <p class="post-small">
@@ -49,7 +49,7 @@
                                                     </p>
                                                         <div class="post-row">
                                                             <p class="post-small">
-                                                                <a href="/c/${post.community.name}/posts/${post.URLid}/${post.titleURL}/#comments">
+                                                                <a href="/c/${post.community}/posts/${post.URLid}/${post.titleURL}/#comments">
                                                                     ${post.comments.length} comments
                                                                 </a>
                                                             </p>
