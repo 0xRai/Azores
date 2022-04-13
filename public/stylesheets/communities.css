@@ -210,35 +210,3 @@ hr {
     font-weight: 500;
     font-size: 3rem;
 }
-
-.loader {
-    display: flex;
-    position: relative;
-    align-items: center;
-    justify-content: center;
-}
-
-.loader img {
-    width: 2rem;
-    animation-name: spinImg;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-}
-
-@keyframes spinImg {
-    0% {
-        transform: rotateZ(0turn);
-    }
-    25% {
-        transform: rotateZ(-0.25turn);
-    }
-    50% {
-        transform: rotateZ(-0.5turn);
-    }
-    75% {
-        transform: rotateZ(-0.75turn);
-    }
-    100% {
-        transform: rotateZ(-1turn);
-    }
-}

@@ -17,4 +17,7 @@ router.route('/u')
 router.route('/u/:username')
     .get(catchAsync(api.showUserAPI))
 
+router.route('/i/:username')
+    .get(catchAsync(api.showIndexAPI))
+
 module.exports = router;

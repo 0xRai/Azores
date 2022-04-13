@@ -15,6 +15,12 @@ router.route('/:username')
 router.route('/:username/top')
     .get(grabUserMemberships, catchAsync(users.showUserTop))
 
+router.route('/:username/comments/')
+    .get(grabUserMemberships, catchAsync(users.showUserComment))
+
+router.route('/:username/comments/Top')
+    .get(grabUserMemberships, catchAsync(users.showUserCommentTop))
+
 
 
 module.exports = router;
