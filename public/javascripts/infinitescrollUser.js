@@ -39,7 +39,7 @@
                         ${post.title}
                     </a>
                     <p class="post-small">
-                        ${post.dateCreatedFormat} to <a href="/c/<%= post.community.name %>" class="community-redirect">
+                        ${post.dateCreatedFormat} to <a href="/c/${post.community}" class="community-redirect">
                         c/${post.community}
                     </a>
 
