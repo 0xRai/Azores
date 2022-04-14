@@ -6,8 +6,7 @@
     const postsEl = document.querySelector('.posts');
     const loaderEl = document.querySelector('.loader');
     const titleSlice = document.querySelector('.user').innerText.trim();
-    console.log(titleSlice)
-        // Get the API Post
+    // Get the API Post
     const getposts = async(skip, limit) => {
             const API_URL = `http://localhost:3000/api/i/${titleSlice}?&skip=${skip}&limit=${limit}`;
             const response = await fetch(API_URL);
@@ -80,9 +79,7 @@
 
     const hasMorePosts = (skip, limit, total) => {
         const startIndex = 0;
-        console.log(`skip: ${skip}, currentSkip: ${currentSkip}, limit: ${limit}, total: ${total}`)
         return total === 0 || startIndex < total;
-
     };
     // load posts
     const loadPosts = async(skip, limit) => {

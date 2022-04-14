@@ -112,7 +112,6 @@
 
     const hasMoreContent = (skip, limit, total) => {
         const startIndex = 0;
-        console.log(`skip: ${skip}, currentSkip: ${currentSkip}, limit: ${limit}, total: ${total}`)
         return total === 0 || startIndex < total;
 
     };
