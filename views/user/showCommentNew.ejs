@@ -14,22 +14,21 @@
         </div>
         <div class="user-content">
             <div class="content-sort">
-                <div class="content-sort-tab content-active">
+                <div class="content-sort-tab">
                     <a href="/user/<%= user.username %>">Posts</a>
                 </div>
-                <div class="content-sort-tab">
-                    <a href="/user/<%= user.username%>/comments">Comments</a>
+                <div class="content-sort-tab content-active">
+                    <a href="/user/<%= user.username%>/comments/">Comments</a>
                 </div>
             </div>
             <div class="user-sort">
                 <div class="user-sort-tab tab-active">
-                    <a href="/user/<%= user.username %>">New</a>
+                    <a href="/user/<%= user.username %>/comments">New</a>
                 </div>
                 <div class="user-sort-tab">
-                    <a href="/user/<%= user.username%>/top">Top</a>
+                    <a href="/user/<%= user.username%>/comments/top">Top</a>
                 </div>
             </div>
-
         </div>
     </header>
     <main>
@@ -59,7 +58,7 @@
             <div class="post">
                 <div class="post-row">
                     <div class="post-section">
-                        <h2>New Posts from
+                        <h2>New Comments from
                             <%- user.username %>
                         </h2>
                     </div>

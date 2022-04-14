@@ -1,8 +1,5 @@
 <% layout('layouts/boilerplate') %>
-    <link rel="stylesheet" href="/stylesheets/user.css">
-    <title>
-        <%- user.username %> | Azores
-    </title>
+    <link rel="stylesheet" href="/stylesheets/build/user.css">
     <header class="user">
         <div class="user-banner">
             <h2 class="user-banner-logo">
@@ -14,15 +11,23 @@
                     <%- user.username %>
                 </h1>
             </div>
-            <div class="user-banner-corner">
-            </div>
         </div>
-        <div class="user-sort">
-            <div class="user-sort-tab">
-                <a href="/user/<%= user.username%>">New</a>
+        <div class="user-content">
+            <div class="content-sort">
+                <div class="content-sort-tab content-active">
+                    <a href="/user/<%= user.username %>">Posts</a>
+                </div>
+                <div class="content-sort-tab">
+                    <a href="/user/<%= user.username%>/comments">Comments</a>
+                </div>
             </div>
-            <div class="user-sort-tab tab-active">
-                <a href="/user/<%= user.username%>/top">Top</a>
+            <div class="user-sort">
+                <div class="user-sort-tab">
+                    <a href="/user/<%= user.username %>">New</a>
+                </div>
+                <div class="user-sort-tab tab-active">
+                    <a href="/user/<%= user.username%>/top">Top</a>
+                </div>
             </div>
         </div>
     </header>
@@ -59,94 +64,12 @@
                     </div>
                 </div>
             </div>
-            <% user.posts.sort((a,b)=> b.rating - a.rating) %>
-                <% for (let post of user.posts) { %>
-                    <div class="post">
-                        <div class="post-row">
-                            <div class="post-section" id="rating">
-                                <p>
-                                    <%- post.rating %>
-                                </p>
-                            </div>
-                            <div class="post-section img-fluid">
-                                <img src="/images/testicon.png" alt="" class="">
-                            </div>
-                            <div class="post-section">
-                                <div class="post-col">
-                                    <div class="post-col">
-                                        <a href="/c/<%= post.community.name%>/posts/<%= post.URLid%>/<%= post.titleURL %>" class="post-title">
-                                            <%- post.title %>
-                                        </a>
-                                    </div>
+            <div class="posts">
+            </div>
 
-                                    <p class="post-small">
-                                        <%- moment(post.dateCreated).format('lll') %> to <a href="/c/<%= post.community.name %>" class="community-redirect">
-                                                c/<%- post.community.name %>
-                                            </a>
-                                    </p>
-                                    <div class="post-row">
-                                        <p class="post-small">
-                                            <a href="/c/<%= post.community.name%>/posts/<%= post.URLid%>/<%= post.titleURL %>/#comments">
-                                                <% if(post.comments.length===1) {%>
-                                                    <%- post.comments.length %> comment
-                                                        <% } else { %>
-                                                            <%- post.comments.length %> comments
-                                                                <% } %>
-
-                                            </a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <% } %>
-                        <div class="post">
-                            <div class="post-row">
-                                <div class="post-section">
-                                    <h2>Top Comments from
-                                        <%- user.username %>
-                                    </h2>
-                                </div>
-                            </div>
-                        </div>
-                        <% user.comments.sort((a,b)=> b.rating - a.rating) %>
-                            <% for (let comment of user.comments) { %>
-                                <div class="post">
-                                    <div class="post-row">
-                                        <div class="post-section" id="rating">
-                                            <p>
-                                                <%- comment.rating %>
-                                            </p>
-                                        </div>
-                                        <div class="post-section">
-                                            <div class="post-col">
-                                                <div class="post-col">
-                                                    <a href="/c/<%= comment.post.community.name %>/posts/<%= comment.post.URLid %>/<%= comment.post.titleURL %> /#<%= comment._id %>" class="community-redirect comment-header">
-                                                        <% if (comment.post.title.length>= 50) {%>
-                                                            <%- comment.post.title.substring(0,49) %>...
-                                                                <% } else { %>
-                                                                    <%- comment.post.title %>
-                                                                        <% } %>
-                                                    </a>
-                                                    <p class="comment-header post-body">
-                                                        <%- comment.body %>
-                                                    </p>
-                                                </div>
-
-                                                <p class="post-small">
-                                                    <%- moment(comment.dateCreated).format('lll') %> in
-                                                        <a href="/c/<%= comment.post.community.name %>/">
-                                                            c/<%- comment.post.community.name %>
-                                                        </a>
-
-                                                </p>
-                                                <div class="post-row">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <% } %>
+            <div class="loader">
+                <img src="/images/loading.svg" alt="">
+            </div>
         </ul>
     </main>
+    <script src="/javascripts/infinitescrollUser.js"></script>

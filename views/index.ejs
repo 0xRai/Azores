@@ -1,49 +1,10 @@
 <% layout('layouts/boilerplate') %>
-    <% try { %>
-        <% postsMerged.sort((a,b)=> new moment(b.dateCreated).format('YYYYMMDDHHmmss')- new
-        moment(a.dateCreated
-        ).format('YYYYMMDDHHmmss')) %>
-            <% for (let post of postsMerged) { %>
-                <div class="post">
-                    <div class="post-row">
-                        <div class="post-section" id="rating">
-                            <p>
-                                <%- post.rating %>
-                            </p>
-                        </div>
-                        <div class="post-section img-fluid">
-                            <img src="/images/testicon.png" alt="" class="">
-                        </div>
-                        <div class="post-section">
-                            <div class="post-col">
-                                <div class="post-col">
-                                    <a href="/c/<%= post.community.name%>/posts/<%= post.URLid %>/<%= post.titleURL %>" class="post-title">
-                                        <%- post.title %>
-                                    </a>
-                                </div>
+    <ul>
+        <div class="posts">
+        </div>
 
-                                <p class="post-small">
-                                    <%- moment(post.dateCreated).format('lll') %> to <a href="/c/<%= post.community.name %>" class="community-redirect">
-                                            c/<%- post.community.name %>
-                                        </a>
-                                </p>
-                                <div class="post-row">
-                                    <p class="post-small">
-                                        <a href="/c/<%= post.community.name%>/posts/<%= post.URLid %>/<%= post.titleURL %>/#comments">
-                                            <% if(post.comments.length===1) {%>
-                                                <%- post.comments.length %> comment
-                                                    <% } else { %>
-                                                        <%- post.comments.length %> comments
-                                                            <% } %>
-
-                                        </a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <% } %>
-                    <% } catch { %>
-                        <p class="no-posts">No content :(</p>
-                        <% } %>
+        <div class="loader">
+            <img src="/images/loading.svg" alt="">
+        </div>
+    </ul>
+    <script src="/javascripts/infinitescrollIndex.js"></script>
