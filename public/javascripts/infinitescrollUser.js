@@ -60,6 +60,7 @@
             postsEl.appendChild(postEl);
         });
     };
+
     const showComments = (comments) => {
         comments.forEach(comment => {
             const postEl = document.createElement('div');
@@ -91,7 +92,15 @@
 
             postsEl.appendChild(postEl);
         });
-    }
+    };
+
+    const noMorePosts = () => {
+        const noMore = document.createElement('p');
+        noMore.innerText = `No more ${activeContentEl} :(`;
+        loaderEl.innerHTML = '';
+        loaderEl.appendChild(noMore);
+
+    };
 
     const hideLoader = () => {
         loaderEl.classList.remove('show');
@@ -119,9 +128,17 @@
                     // call the API to get posts
                     const response = await getContent(skip, limit);
                     if (activeContentEl === 'Posts') {
-                        showPosts(response.posts);
+                        if (response.posts.length === 0) {
+                            noMorePosts();
+                        } else {
+                            showPosts(response.posts);
+                        }
                     } else if (activeContentEl === 'Comments') {
-                        showComments(response.comments);
+                        if (response.comments.length === 0) {
+                            noMorePosts();
+                        } else {
+                            showComments(response.comments);
+                        }
                     }
                     // update the total
                     total = response.total;

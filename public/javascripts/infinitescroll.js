@@ -9,15 +9,16 @@
     const titleSlice = document.title.slice(0, document.title.trim().indexOf(':'));
     // Get the API Post
     const getposts = async(skip, limit) => {
-            const API_URL = `http://localhost:3000/api/c/${titleSlice}?&sortBy=${activeTabEl}&skip=${skip}&limit=${limit}`;
-            const response = await fetch(API_URL);
-            // handle 404
-            if (!response.ok) {
-                throw new Error(`An error occurred: ${response.status}`);
-            }
-            return await response.json();
+        const API_URL = `http://localhost:3000/api/c/${titleSlice}?&sortBy=${activeTabEl}&skip=${skip}&limit=${limit}`;
+        const response = await fetch(API_URL);
+        // handle 404
+        if (!response.ok) {
+            throw new Error(`An error occurred: ${response.status}`);
         }
-        // show the posts
+        return await response.json();
+    }
+
+    // show the posts
     const showPosts = (posts) => {
         posts.forEach(post => {
             const postEl = document.createElement('div');
@@ -64,6 +65,14 @@
         });
     };
 
+    const noMorePosts = () => {
+        const noMore = document.createElement('p');
+        noMore.innerText = 'No more posts :(';
+        loaderEl.innerHTML = '';
+        loaderEl.appendChild(noMore);
+
+    };
+
     const hideLoader = () => {
         loaderEl.classList.remove('show');
     };
@@ -74,7 +83,6 @@
 
     const hasMorePosts = (skip, limit, total) => {
         const startIndex = 0;
-        console.log(`skip: ${skip}, currentSkip: ${currentSkip}, limit: ${limit}, total: ${total}`)
         return total === 0 || startIndex < total;
 
     };
@@ -90,9 +98,13 @@
                     // call the API to get posts
                     const response = await getposts(skip, limit);
                     // show posts
-                    showPosts(response.posts);
-                    // update the total
-                    total = response.total;
+                    if (response.posts.length === 0) {
+                        noMorePosts();
+                    } else {
+                        showPosts(response.posts);
+                        // update the total
+                        total = response.total;
+                    }
                 }
             } catch (error) {
                 console.log(error.message);

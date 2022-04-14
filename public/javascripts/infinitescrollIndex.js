@@ -62,6 +62,14 @@
         });
     };
 
+    const noMorePosts = () => {
+        const noMore = document.createElement('p');
+        noMore.innerText = 'No more posts :(';
+        loaderEl.innerHTML = '';
+        loaderEl.appendChild(noMore);
+
+    };
+
     const hideLoader = () => {
         loaderEl.classList.remove('show');
     };
@@ -88,9 +96,13 @@
                     // call the API to get posts
                     const response = await getposts(skip, limit);
                     // show posts
-                    showPosts(response.posts);
-                    // update the total
-                    total = response.total;
+                    if (response.posts.length === 0) {
+                        noMorePosts();
+                    } else {
+                        showPosts(response.posts);
+                        // update the total
+                        total = response.total;
+                    }
                 }
             } catch (error) {
                 console.log(error.message);
