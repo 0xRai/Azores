@@ -594,6 +594,7 @@ p {
     position: relative;
     align-items: center;
     justify-content: center;
+    padding-bottom: 1rem;
 }
 
 .loader img {
