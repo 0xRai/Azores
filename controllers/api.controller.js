@@ -104,7 +104,6 @@ module.exports.showUserAPI = async(req, res) => {
 }
 
 module.exports.showIndexAPI = async(req, res) => {
-    let postJSON
     const user = await User.findOne({ username: req.params.username }).populate('memberships')
     const posts = await Post.find({ community: { $in: user.memberships } })
         .lean()
@@ -123,7 +122,32 @@ module.exports.showIndexAPI = async(req, res) => {
         post.dateCreatedFormat = moment(post.dateCreated).format('lll');
     }
     const total = await Post.find({ community: { $in: user.memberships } }).countDocuments()
-    postJSON = {
+    let postJSON = {
+        total,
+        posts
+    }
+    res.send(postJSON)
+}
+
+module.exports.showIndexAPInonUser = async(req, res) => {
+    const posts = await Post.find({})
+        .lean()
+        .sort({ dateCreated: -1 })
+        .skip(req.query.skip)
+        .limit(req.query.limit)
+        .populate({
+            path: 'author',
+            model: User,
+            path: 'community',
+            model: Community
+        })
+    for (let post of posts) {
+        post.author = await User.findById(post.author)
+        omitIndex(post)
+        post.dateCreatedFormat = moment(post.dateCreated).format('lll');
+    }
+    const total = await Post.find({}).countDocuments();
+    let postJSON = {
         total,
         posts
     }
@@ -142,13 +166,7 @@ function omitIndex(post) {
 function omitComm(post) {
     delete post._id;
     delete post.__v;
-    delete post.author._id;
-    delete post.author.email;
-    delete post.author.__v;
-    delete post.author.memberships;
-    delete post.author.comments;
-    delete post.author.posts;
-    delete post.author.dateCreated;
+    post.author = post.author.username
 }
 
 function omitUserPost(post) {

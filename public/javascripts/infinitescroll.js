@@ -7,6 +7,7 @@
     const loaderEl = document.querySelector('.loader');
     const activeTabEl = document.querySelector('.tab-active').innerText;
     const titleSlice = document.title.slice(0, document.title.trim().indexOf(':'));
+    const currentUser = document.querySelector('.user').innerText.trim();
     // Get the API Post
     const getposts = async(skip, limit) => {
         const API_URL = `http://localhost:3000/api/c/${titleSlice}?&sortBy=${activeTabEl}&skip=${skip}&limit=${limit}`;
@@ -23,7 +24,8 @@
         posts.forEach(post => {
             const postEl = document.createElement('div');
             postEl.classList.add('post');
-            postEl.innerHTML = `
+            if (currentUser === post.author) {
+                postEl.innerHTML = `
                                         <div class="post-row">
                                             <div class="post-section" id="rating">
                                                 <button>▲</button>
@@ -42,8 +44,52 @@
                                                     </a>
                                                     <p class="post-small">
                                                         Submitted by
-                                                        <a href="/user/${post.author.username}">
-                                                            ${post.author.username}
+                                                        <a href="/user/${post.author}">
+                                                            ${post.author}
+                                                        </a>
+                                                        •
+                                                        ${post.dateCreatedFormat}
+                                                    </p>
+                                                        <div class="post-row">
+                                                            <p class="post-small">
+                                                                <a href="/c/${post.community}/posts/${post.URLid}/${post.titleURL}/#comments">
+                                                                    ${post.comments.length} comments
+                                                                </a>
+                                                            </p>
+                                                        <form action="/c/${post.community}/posts/${post.URLid}/${post.titleURL}/edit">
+                                                            <button class="no-button post-small">Edit</button>
+                                                        </form>
+                                                        <form action="/c/${post.community}/posts/${post.URLid}/${post.titleURL}?_method=DELETE" method="POST">
+                                                            <button class="no-button post-small">Delete</button>
+                                                        </form>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+        `;
+            } else {
+                postEl.innerHTML = `
+                                        <div class="post-row">
+                                            <div class="post-section" id="rating">
+                                                <button>▲</button>
+                                                <p>
+                                                    ${post.rating}
+                                                </p>
+                                                <button>▼</button>
+                                            </div>
+                                            <div class="post-section img-fluid">
+                                                <img src="/images/testicon.png" alt="" class="">
+                                            </div>
+                                            <div class="post-section">
+                                                <div class="post-col">
+                                                    <a href="/c/${post.community}/posts/${post.URLid}/${post.titleURL}" class="post-title">
+                                                        ${post.title}
+                                                    </a>
+                                                    <p class="post-small">
+                                                        Submitted by
+                                                        <a href="/user/${post.author}">
+                                                            ${post.author}
                                                         </a>
                                                         •
                                                         ${post.dateCreatedFormat}
@@ -60,6 +106,7 @@
                                         </div>
                                     </div>
         `;
+            }
 
             postsEl.appendChild(postEl);
         });

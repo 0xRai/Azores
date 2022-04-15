@@ -7,4 +7,8 @@
             <img src="/images/loading.svg" alt="">
         </div>
     </ul>
-    <script src="/javascripts/infinitescrollIndex.js"></script>
+    <% if (!currentUser) { %>
+        <script src="/javascripts/infinitescrollIndexNU.js"></script>
+        <% } else { %>
+            <script src="/javascripts/infinitescrollIndex.js"></script>
+            <% } %>

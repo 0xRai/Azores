@@ -12,4 +12,7 @@ router.route('/u/:username')
 router.route('/i/:username')
     .get(catchAsync(api.showIndexAPI))
 
+router.route('/i/')
+    .get(catchAsync(api.showIndexAPInonUser))
+
 module.exports = router;
