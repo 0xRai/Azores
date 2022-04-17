@@ -39,6 +39,43 @@ module.exports.showCommunityAPI = async(req, res, next) => {
     res.send(postJSON)
 }
 
+module.exports.showPostAPI = async(req, res) => {
+    let SortBy
+    const post = await Post.findOne({ URLid: req.params.URLid, titleURL: req.params.titleURL }).populate('community')
+    const community = await Community.findById(post.community.id)
+    const communityName = community.name
+    if (req.query.sortBy === 'New') {
+        SortBy = { dateCreated: -1 }
+    } else if (req.query.sortBy === 'Hot') {
+        SortBy = { dateModified: -1 }
+    } else if (req.query.sortBy === 'Top') {
+        SortBy = { rating: -1 }
+    }
+    const comments = await Comment.find({ post: post.id })
+        .lean()
+        .sort(SortBy)
+        .skip(req.query.skip)
+        .limit(req.query.limit)
+        .populate('author');
+    for (let comment of comments) {
+        comment.dateCreatedFormat = moment(comment.dateCreated).format('lll');
+        omitComment(comment)
+        comment.post = {
+            URLid: req.params.URLid,
+            titleURL: req.params.titleURL,
+            community: communityName,
+        }
+
+    }
+    let total = post.comments.length
+    let postJSON = {
+        total,
+        comments
+    }
+    res.send(postJSON)
+
+}
+
 module.exports.showUserAPI = async(req, res) => {
     let SortBy
     let total
@@ -51,7 +88,7 @@ module.exports.showUserAPI = async(req, res) => {
         } else if (req.query.sortBy === 'Top') {
             SortBy = { rating: -1 }
         }
-        posts = await Post.find({ author: user._id })
+        posts = await Post.find({ author: user.id })
             .lean()
             .sort(SortBy)
             .skip(req.query.skip)
@@ -76,7 +113,7 @@ module.exports.showUserAPI = async(req, res) => {
         } else if (req.query.sortBy === 'Top') {
             SortBy = { rating: -1 }
         }
-        comments = await Comment.find({ author: user._id })
+        comments = await Comment.find({ author: user.id })
             .lean()
             .sort(SortBy)
             .skip(req.query.skip)
@@ -89,10 +126,12 @@ module.exports.showUserAPI = async(req, res) => {
                     model: Community,
                 }
             })
+
         for (let comment of comments) {
             omitUserComment(comment)
-            comment.post.community = comment.post.community.name;
             comment.dateCreatedFormat = moment(comment.dateCreated).format('lll');
+            comment.post.community = comment.post.community.name;
+
         }
         total = user.comments.length;
         commentJSON = {
@@ -181,4 +220,9 @@ function omitUserComment(comment) {
     delete comment.post.__v;
     delete comment.post.author;
     delete comment.post.comments;
+}
+
+function omitComment(comment) {
+    delete comment.__v;
+    comment.author = comment.author.username;
 }

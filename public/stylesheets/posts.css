@@ -62,3 +62,7 @@ hr {
         outline-width: .2rem;
     }
 }
+
+.loader {
+    top: 50%;
+}

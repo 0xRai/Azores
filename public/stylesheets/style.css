@@ -589,6 +589,10 @@ p {
     Animations
     ===========  */
 
+.posts {
+    position: relative;
+}
+
 .loader {
     display: flex;
     position: relative;
@@ -597,6 +601,7 @@ p {
     padding-bottom: 1rem;
     color: var(--white);
     font-size: larger;
+    z-index: 2;
 }
 
 .loader img {
