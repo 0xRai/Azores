@@ -431,8 +431,8 @@ p {
 }
 
 #navbarMid {
-    flex-basis: 25rem;
-    max-width: 25rem;
+    flex-basis: 40rem;
+    max-width: 40rem;
 }
 
 #searchBar {
@@ -445,6 +445,8 @@ p {
     transition-duration: 100ms;
     width: 100%;
     color: white;
+    margin: 0 4rem;
+    transform: translateX(-1rem);
 }
 
 #searchBar[type='text'] {
