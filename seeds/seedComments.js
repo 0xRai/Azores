@@ -1,10 +1,8 @@
 const mongoose = require('mongoose');
 const { firstWord, thirdWord, secondWord } = require('./seedHelpers');
 const Post = require('../models/post.schema');
-const URLidGen = require('../utils/URLidGen');
-const Community = require('../models/community.schema');
 const User = require('../models/user.schema');
-const { kill } = require('process');
+const Comment = require('../models/comment.schema')
 
 mongoose.connect('mongodb://localhost:27017/azores', {
     useNewUrlParser: true,
@@ -21,25 +19,22 @@ db.once("open", () => {
 const sample = array => array[Math.floor(Math.random() * array.length)];
 
 const seedDB = async() => {
-    const community = await Community.findOne({ name: 'TestCommunity' }).populate('posts');
+    const post = await Post.findOne({ URLid: '9p8E0x', titleURL: 'A_right_week' });
     const user = await User.findOne({ username: 'test' });
-    await Post.deleteMany({});
-    console.time('seeding')
+    post.comments = [];
+    await Comment.deleteMany({});
+    console.time('seeding');
     for (let i = 0; i < 500; i++) {
-        const post = new Post({
-            URLid: URLidGen(),
-            title: `${sample(firstWord)} ${sample(secondWord)} ${sample(thirdWord)}`,
-            titleURL: '',
-            body: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque nemo adipisci architecto, amet cumque vel. Repellat ea quas ut, odio recusandae pariatur rem tenetur iusto placeat. Quas voluptatibus enim dolore.',
-            community: community._id,
+        const comment = new Comment({
+            body: `${sample(firstWord)} ${sample(secondWord)} ${sample(thirdWord)}`,
+            post: post._id,
             author: user._id,
         });
-        post.titleURL = post.title.replaceAll(/[ ?./]/gi, '_');
-        community.posts.push(post);
-        user.posts.push(post);
+        post.comments.push(comment);
+        user.comments.push(comment);
         await post.save();
-        await community.save();
         await user.save();
+        await comment.save();
         process.stdout.write("\r" + i);
     }
     console.log("\r" + "Seeding complete");

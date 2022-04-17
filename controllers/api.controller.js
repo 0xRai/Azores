@@ -39,6 +39,43 @@ module.exports.showCommunityAPI = async(req, res, next) => {
     res.send(postJSON)
 }
 
+module.exports.showPostAPI = async(req, res) => {
+    let SortBy
+    const post = await Post.findOne({ URLid: req.params.URLid, titleURL: req.params.titleURL }).populate('community')
+    const community = await Community.findById(post.community.id)
+    const communityName = community.name
+    if (req.query.sortBy === 'New') {
+        SortBy = { dateCreated: -1 }
+    } else if (req.query.sortBy === 'Hot') {
+        SortBy = { dateModified: -1 }
+    } else if (req.query.sortBy === 'Top') {
+        SortBy = { rating: -1 }
+    }
+    const comments = await Comment.find({ post: post.id })
+        .lean()
+        .sort(SortBy)
+        .skip(req.query.skip)
+        .limit(req.query.limit)
+        .populate('author');
+    for (let comment of comments) {
+        comment.dateCreatedFormat = moment(comment.dateCreated).format('lll');
+        omitComment(comment)
+        comment.post = {
+            URLid: req.params.URLid,
+            titleURL: req.params.titleURL,
+            community: communityName,
+        }
+
+    }
+    let total = post.comments.length
+    let postJSON = {
+        total,
+        comments
+    }
+    res.send(postJSON)
+
+}
+
 module.exports.showUserAPI = async(req, res) => {
     let SortBy
     let total
@@ -51,7 +88,7 @@ module.exports.showUserAPI = async(req, res) => {
         } else if (req.query.sortBy === 'Top') {
             SortBy = { rating: -1 }
         }
-        posts = await Post.find({ author: user._id })
+        posts = await Post.find({ author: user.id })
             .lean()
             .sort(SortBy)
             .skip(req.query.skip)
@@ -76,7 +113,7 @@ module.exports.showUserAPI = async(req, res) => {
         } else if (req.query.sortBy === 'Top') {
             SortBy = { rating: -1 }
         }
-        comments = await Comment.find({ author: user._id })
+        comments = await Comment.find({ author: user.id })
             .lean()
             .sort(SortBy)
             .skip(req.query.skip)
@@ -89,10 +126,12 @@ module.exports.showUserAPI = async(req, res) => {
                     model: Community,
                 }
             })
+
         for (let comment of comments) {
             omitUserComment(comment)
-            comment.post.community = comment.post.community.name;
             comment.dateCreatedFormat = moment(comment.dateCreated).format('lll');
+            comment.post.community = comment.post.community.name;
+
         }
         total = user.comments.length;
         commentJSON = {
@@ -104,7 +143,6 @@ module.exports.showUserAPI = async(req, res) => {
 }
 
 module.exports.showIndexAPI = async(req, res) => {
-    let postJSON
     const user = await User.findOne({ username: req.params.username }).populate('memberships')
     const posts = await Post.find({ community: { $in: user.memberships } })
         .lean()
@@ -123,7 +161,32 @@ module.exports.showIndexAPI = async(req, res) => {
         post.dateCreatedFormat = moment(post.dateCreated).format('lll');
     }
     const total = await Post.find({ community: { $in: user.memberships } }).countDocuments()
-    postJSON = {
+    let postJSON = {
+        total,
+        posts
+    }
+    res.send(postJSON)
+}
+
+module.exports.showIndexAPInonUser = async(req, res) => {
+    const posts = await Post.find({})
+        .lean()
+        .sort({ dateCreated: -1 })
+        .skip(req.query.skip)
+        .limit(req.query.limit)
+        .populate({
+            path: 'author',
+            model: User,
+            path: 'community',
+            model: Community
+        })
+    for (let post of posts) {
+        post.author = await User.findById(post.author)
+        omitIndex(post)
+        post.dateCreatedFormat = moment(post.dateCreated).format('lll');
+    }
+    const total = await Post.find({}).countDocuments();
+    let postJSON = {
         total,
         posts
     }
@@ -142,13 +205,7 @@ function omitIndex(post) {
 function omitComm(post) {
     delete post._id;
     delete post.__v;
-    delete post.author._id;
-    delete post.author.email;
-    delete post.author.__v;
-    delete post.author.memberships;
-    delete post.author.comments;
-    delete post.author.posts;
-    delete post.author.dateCreated;
+    post.author = post.author.username
 }
 
 function omitUserPost(post) {
@@ -163,4 +220,9 @@ function omitUserComment(comment) {
     delete comment.post.__v;
     delete comment.post.author;
     delete comment.post.comments;
+}
+
+function omitComment(comment) {
+    delete comment.__v;
+    comment.author = comment.author.username;
 }

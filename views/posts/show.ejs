@@ -82,37 +82,13 @@
             <% } %>
                 <!-- COMMENTS -->
                 <hr>
-                <% for (let comment of post.comments) { %>
-                    <div class="post-row" id="<%= comment._id %>">
-                        <div class="post-section" id="rating">
-                            <button>▲</button>
-                            <p>
-                                <%- comment.rating %>
-                            </p>
-                            <button>▼</button>
-                        </div>
-                        <div class="post-section">
-                            <div class="post-col">
-                                <p class="post-small">
-                                    <a href="/user/<%= comment.author.username %>">
-                                        <%- comment.author.username %>
-                                    </a>
-                                    •
-                                    <%- moment(comment.dateCreated).format('lll') %>
-                                </p>
-                                <div class="post-body post-small">
-                                    <%- comment.body %>
-                                </div>
-                                <% if(currentUser && comment.author.equals(currentUser._id)) { %>
-                                    <div class="post-row">
-                                        <form action="/c/<%= post.community.name %>/posts/<%= post.URLid %>/<%= post.titleURL %>/comments/<%= comment._id%>?_method=DELETE" method="POST">
-                                            <button class="no-button post-small">Delete</button>
-                                        </form>
-                                    </div>
-                                    <% } %>
-                                        <hr>
-                            </div>
-                        </div>
-                    </div>
-                    <% } %>
+                <div class="posts">
+                </div>
+
+                <div class="loader">
+                    <img src="/images/loadingDark.svg" alt="">
+                </div>
     </main>
+
+    <script src="/javascripts/infinitescrollPost.js">
+    </script>
