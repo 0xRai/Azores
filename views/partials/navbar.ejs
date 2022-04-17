@@ -4,7 +4,7 @@
             <img class="navbar-brand" src="/images/azores.svg" alt="">
             <p class="navbar-brand" id="navBrand">Azores</p>
         </a>
-        <div class="navbar-section">
+        <div class="navbar-section" id="navbarMid">
             <% if(!currentUser) { %>
                 <% } else { %>
                     <select name="communities" id="community-select" onchange="location = this.value">
@@ -21,10 +21,9 @@
 
                     </select>
                     <% } %>
-        </div>
-        <div class="navbar-section" id="navbarMid">
-            <input type="text" name="search" id="searchBar" placeholder="Search Azores">
-            <button id="searchBarBtn" onclick="location.href='/c/'"></button>
+
+                        <input type="text" name="search" id="searchBar" placeholder="Search Azores">
+                        <button id="searchBarBtn" onclick="location.href='/c/'"></button>
         </div>
         <div class="navbar-section" id="navbarRight">
             <% if (!currentUser) {%>
