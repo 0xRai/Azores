@@ -16,6 +16,7 @@ module.exports.createCommunity = async(req, res, next) => {
     const user = await User.findById(req.user._id);
     community.creator = req.user._id;
     community.members.push(community.creator);
+    community.roles.admin.users.push(community.creator);
     await User.findByIdAndUpdate(user, { $push: { memberships: community._id } })
     await community.save();
     req.flash('success', 'Sucessfully made a new community!');

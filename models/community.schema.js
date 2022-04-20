@@ -6,13 +6,19 @@ const User = require('./user.schema');
 const CommunitySchema = new Schema({
     name: {
         type: String,
-        unique: true,
-        trim: true,
-        required: true,
+        unique: true
     },
     creator: {
         type: Schema.Types.ObjectId,
         ref: 'User'
+    },
+    visibility: {
+        type: Boolean,
+        default: true,
+        whitelist: [{
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }]
     },
     posts: [{
         type: Schema.Types.ObjectId,
@@ -20,9 +26,7 @@ const CommunitySchema = new Schema({
     }],
     description: {
         type: String,
-        default: "Just a generic description!",
-        trim: true,
-        required: true,
+        default: "Just a generic description!"
     },
     dateCreated: {
         type: Date,
@@ -36,7 +40,94 @@ const CommunitySchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User',
     }],
+    roles: {
+        admin: {
+            users: [{
+                type: Schema.Types.ObjectId,
+                ref: 'User',
+            }],
+            perms: {
+                canStickyPosts: {
+                    type: Boolean,
+                    default: true,
+                },
+                canMakeAnnouncments: {
+                    type: Boolean,
+                    default: true,
+                },
+                canBanUsers: {
+                    type: Boolean,
+                    default: true,
+                },
+                canDeletePosts: {
+                    type: Boolean,
+                    default: true,
+                },
+                canModifyCommunity: {
+                    type: Boolean,
+                    default: true,
+                },
+                canChangeMods: {
+                    type: Boolean,
+                    default: true,
+                },
+                canChangeAdmins: {
+                    type: Boolean,
+                    default: true,
+                },
+                canModifyRoles: {
+                    type: Boolean,
+                    default: true,
+                }
+            },
+        },
+        mod: {
+            users: [{
+                type: Schema.Types.ObjectId,
+                ref: 'User',
+            }],
+            perms: {
+                canStickyPosts: {
+                    type: Boolean,
+                    default: false,
+                },
+                canMakeAnnouncments: {
+                    type: Boolean,
+                    default: false,
+                },
+                canBanUsers: {
+                    type: Boolean,
+                    default: true,
+                },
+                canDeletePosts: {
+                    type: Boolean,
+                    default: true,
+                },
+                canModifyCommunity: {
+                    type: Boolean,
+                    default: false,
+                },
+                canChangeMods: {
+                    type: Boolean,
+                    default: false,
+                },
+                canChangeAdmins: {
+                    type: Boolean,
+                    default: false,
+                },
+                canModifyRoles: {
+                    type: Boolean,
+                    default: false,
+                }
+            },
+        },
+        banned: [{
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }],
+    }
 });
+
 
 CommunitySchema.post('findOneAndDelete', async function(doc) {
     if (doc) {

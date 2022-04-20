@@ -23,7 +23,10 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Community',
     }],
-    roles: String,
+    GlobalRole: {
+        type: Schema.Types.ObjectId,
+        ref: 'GlobalRoles'
+    },
     posts: [{
         type: Schema.Types.ObjectId,
         ref: 'Posts'

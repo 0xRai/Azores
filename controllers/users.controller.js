@@ -1,7 +1,4 @@
 const User = require('../models/user.schema');
-const Post = require('../models/post.schema');
-const Community = require('../models/community.schema');
-const Comment = require('../models/comment.schema');
 
 module.exports.showUser = async(req, res) => {
     const user = await grabUser(req)
