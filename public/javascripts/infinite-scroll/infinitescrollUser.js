@@ -10,7 +10,7 @@
     const titleSlice = document.title.slice(0, document.title.trim().indexOf("'"));
     // Get the API Post
     const getContent = async(skip, limit) => {
-            const API_URL = `http://localhost:3000/api/u/${titleSlice}?content=${activeContentEl}&sortBy=${activeTabEl}&skip=${skip}&limit=${limit}`;
+            const API_URL = `/api/u/${titleSlice}?content=${activeContentEl}&sortBy=${activeTabEl}&skip=${skip}&limit=${limit}`;
             const response = await fetch(API_URL);
             // handle 404
             if (!response.ok) {

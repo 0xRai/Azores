@@ -8,7 +8,7 @@
     const titleSlice = document.querySelector('.user').innerText.trim();
     // Get the API Post
     const getposts = async(skip, limit) => {
-        const API_URL = `http://localhost:3000/api/i/${titleSlice}?&skip=${skip}&limit=${limit}`;
+        const API_URL = `/api/i/${titleSlice}?&skip=${skip}&limit=${limit}`;
         const response = await fetch(API_URL);
         // handle 404
         if (!response.ok) {
